@@ -246,20 +246,20 @@ namespace mixin {
 
   namespace solution {
 
-    template <typename BASE, typename T = typename BASE::value_type>
-    struct Undoable : public BASE {
-      typedef T value_type;
+    template <typename Base>
+    struct Undoable : public Base {
+      typedef typename Base::value_type T;
       T before;
-      void set(T v) { before = BASE::get(); BASE::set(v); }
-      void undo() { BASE::set(before); }
+      void set(T v) { before = Base::get(); Base::set(v); }
+      void undo() { Base::set(before); }
     };
 
-    template <typename BASE, typename T = typename BASE::value_type>
-    struct Redoable : public BASE {
-      typedef T value_type;
+    template <typename Base>
+    struct Redoable : public Base {
+      typedef typename Base::value_type T;
       T after;
-      void set(T v) { after = v; BASE::set(v); }
-      void redo() { BASE::set(after); }
+      void set(T v) { after = v; Base::set(v); }
+      void redo() { Base::set(after); }
     };
 
     typedef Redoable< Undoable<Number> > ReUndoableNumber;

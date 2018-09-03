@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src/3-SmartPointer/bonus/shared.cpp">
+      <Filter>3- Smart Pointer\bonus</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src/0-Types/no_destruct.h">
+      <Filter>0- Types</Filter>
+    </ClInclude>
+    <ClInclude Include="src/0-Types/number.hpp">
+      <Filter>0- Types</Filter>
+    </ClInclude>
+    <ClInclude Include="src/1-OperatorOverload/op_overload_override_example.hpp">
+      <Filter>1-Operator Overload</Filter>
+    </ClInclude>
+    <ClInclude Include="src/2-Inheritance/diamond_problem.hpp">
+      <Filter>2- Inheritance</Filter>
+    </ClInclude>
+    <ClInclude Include="src/2-Inheritance/friend_usage.hpp">
+      <Filter>2- Inheritance</Filter>
+    </ClInclude>
+    <ClInclude Include="src/2-Inheritance/inheritance_usage.hpp">
+      <Filter>2- Inheritance</Filter>
+    </ClInclude>
+    <ClInclude Include="src/2-Inheritance/template_inheritance_usage.hpp">
+      <Filter>2- Inheritance</Filter>
+    </ClInclude>
+    <ClInclude Include="src/2-Inheritance/virtual_destructor.hpp">
+      <Filter>2- Inheritance</Filter>
+    </ClInclude>
+    <ClInclude Include="src/3-SmartPointer/malloc_usage.hpp">
+      <Filter>3- Smart Pointer</Filter>
+    </ClInclude>
+    <ClInclude Include="src/3-SmartPointer/shared_pointer.hpp">
+      <Filter>3- Smart Pointer</Filter>
+    </ClInclude>
+    <ClInclude Include="src/3-SmartPointer/smart_pointer.hpp">
+      <Filter>3- Smart Pointer</Filter>
+    </ClInclude>
+    <ClInclude Include="src/3-SmartPointer/weak_pointer.hpp">
+      <Filter>3- Smart Pointer</Filter>
+    </ClInclude>
+    <ClInclude Include="src/3-SmartPointer/bonus/handle.h">
+      <Filter>3- Smart Pointer\bonus</Filter>
+    </ClInclude>
+    <ClInclude Include="src/3-SmartPointer/bonus/shared.h">
+      <Filter>3- Smart Pointer\bonus</Filter>
+    </ClInclude>
+    <ClInclude Include="src/3-SmartPointer/bonus/bonus_old_style_smart_pointer.hpp">
+      <Filter>3- Smart Pointer\bonus</Filter>
+    </ClInclude>
+    <ClInclude Include="src/4-RefUsage/copy_elision_usage.hpp">
+      <Filter>4- Ref Usage</Filter>
+    </ClInclude>
+    <ClInclude Include="src/4-RefUsage/ref_usage_example.hpp">
+      <Filter>4- Ref Usage</Filter>
+    </ClInclude>
+    <ClInclude Include="src/5-Static/static_usage.hpp">
+      <Filter>5- Static</Filter>
+    </ClInclude>
+    <ClInclude Include="src/6-Templates/template_container.hpp">
+      <Filter>6- Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="src/6-Templates/template_decltype.hpp">
+      <Filter>6- Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="src/6-Templates/template_mixin.hpp">
+      <Filter>6- Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="src/7-Exceptions/exception_usage.hpp">
+      <Filter>7- Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="src/8-CustomComparators/custom_comparator.hpp">
+      <Filter>8- Custom Comparators</Filter>
+    </ClInclude>
+    <ClInclude Include="src/9-AsyncFuture/async_usage.hpp">
+      <Filter>9- Async &amp; Future</Filter>
+    </ClInclude>
+    <ClInclude Include="src\6-Templates\template_staticpolymorphism.hpp">
+      <Filter>6- Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\6-Templates\template_crtp_usage.hpp">
+      <Filter>6- Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\6-Templates\template_policies.hpp">
+      <Filter>6- Templates</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="2- Inheritance">
+      <UniqueIdentifier>{3fe61484-9a33-424f-97ce-e3cb8fa8cebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1-Operator Overload">
+      <UniqueIdentifier>{e4d242cc-2a40-4ef2-a0ad-36c52e5fc784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0- Types">
+      <UniqueIdentifier>{a29b09fe-3c3b-4911-90d6-c0bb4f8b3c92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3- Smart Pointer">
+      <UniqueIdentifier>{803d2eb1-2b61-4bea-a3d8-80af5d1cc216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3- Smart Pointer\bonus">
+      <UniqueIdentifier>{adf02153-dd2e-4b19-a9a4-75fba26276e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4- Ref Usage">
+      <UniqueIdentifier>{7781fbb9-7a36-410b-85ac-67499bf15f4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5- Static">
+      <UniqueIdentifier>{ec53b31b-0c89-4664-88f0-119582b7ef1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="6- Templates">
+      <UniqueIdentifier>{e0e38083-c5d1-47e8-a775-45777213b2be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="7- Exceptions">
+      <UniqueIdentifier>{1c9c8802-7383-41e1-9876-733ebf4898b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="8- Custom Comparators">
+      <UniqueIdentifier>{ce19e4ad-334d-4591-a42c-8b4c873941c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="9- Async &amp; Future">
+      <UniqueIdentifier>{9a031543-0bf5-4a03-9114-624f0c69363a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
