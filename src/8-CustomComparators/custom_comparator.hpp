@@ -57,7 +57,7 @@ namespace ccn {
   // Bu sayede, fonksiyon içerisinde begin -> end arasýndaki iterasyonlarda 
   // Student sýnýfýnýn özelliklerine eriþebileceðimiz garanti altýna almýþ oluyoruz.
   template <typename Iter, 
-            typename = std::enable_if<
+            typename = typename std::enable_if<
                           std::is_same<typename std::iterator_traits<Iter>::value_type, Student*>::value 
                        >::type >
   void printStudents(Iter begin, Iter end) {
