@@ -73,9 +73,6 @@
     <ClInclude Include="src/7-Exceptions/exception_usage.hpp">
       <Filter>7- Exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="src/8-CustomComparators/custom_comparator.hpp">
-      <Filter>8- Custom Comparators</Filter>
-    </ClInclude>
     <ClInclude Include="src/9-AsyncFuture/async_usage.hpp">
       <Filter>9- Async &amp; Future</Filter>
     </ClInclude>
@@ -86,6 +83,12 @@
       <Filter>6- Templates</Filter>
     </ClInclude>
     <ClInclude Include="src\6-Templates\template_policies.hpp">
+      <Filter>6- Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="src/8-CustomComparators/custom_comparator.hpp">
+      <Filter>8- Custom Comparators</Filter>
+    </ClInclude>
+    <ClInclude Include="src\6-Templates\template_static_assert.hpp">
       <Filter>6- Templates</Filter>
     </ClInclude>
   </ItemGroup>

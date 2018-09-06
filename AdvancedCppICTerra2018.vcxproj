@@ -182,6 +182,7 @@
     <ClInclude Include="src/7-Exceptions/exception_usage.hpp" />
     <ClInclude Include="src/8-CustomComparators/custom_comparator.hpp" />
     <ClInclude Include="src/9-AsyncFuture/async_usage.hpp" />
+    <ClInclude Include="src\6-Templates\template_static_assert.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

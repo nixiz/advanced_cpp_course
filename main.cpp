@@ -33,6 +33,7 @@
 #include "src/6-Templates/template_decltype.hpp"
 #include "src/6-Templates/template_container.hpp"
 #include "src/6-Templates/template_policies.hpp"
+#include "src/6-Templates/template_static_assert.hpp"
 
 // 7- exceptions
 #include "src/7-Exceptions/exception_usage.hpp"
@@ -78,6 +79,7 @@ int main(int argc, char *argv[]) {
       .Add<MixinTemplateExample>()
       .Add<TemplatePolicies>()
       .Add<TemplateDecltypeUsage>()
+      .Add<TemplateStaticAssert>()
       // 7- exceptions
       .Add<ExceptionUsage>()
       // 8- custom comparators
