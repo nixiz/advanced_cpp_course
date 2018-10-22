@@ -18,6 +18,7 @@
 #include "src/3-SmartPointer/shared_pointer.hpp"
 #include "src/3-SmartPointer/weak_pointer.hpp"
 #include "src/3-SmartPointer/bonus/bonus_old_style_smart_pointer.hpp"
+#include "src/3-SmartPointer/cpu_cache_misses.hpp"
 
 // 4- reference usage
 #include "src/4-RefUsage/ref_usage_example.hpp"
@@ -66,6 +67,7 @@ int main(int argc, char *argv[]) {
       .Add<SharedPointerUsage>()
       .Add<WeakPointerUsage>()
       .Add<OldStyleSmartPointer>()
+      .Add<CpuCacheExample>()
       // 4- reference usage
       .Add<RefUsageExample>()
       .Add<CopyElisionReturnByValue>()
@@ -132,7 +134,12 @@ int main(int argc, char *argv[]) {
         po.RunAll();
         break;
       case cmd_type::cmd:
+#ifdef MSBUILD
+        // add mscv build decorations
+        po.RunWithName({ std::string("class " + read_line) });
+#else
         po.RunWithName({ read_line });
+#endif
         break;
       case cmd_type::quit:
       default:

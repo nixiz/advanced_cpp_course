@@ -175,6 +175,7 @@
     <ClInclude Include="src/5-Static/static_usage.hpp" />
     <ClInclude Include="src/6-Templates/template_decltype.hpp" />
     <ClInclude Include="src/6-Templates/template_container.hpp" />
+    <ClInclude Include="src\3-SmartPointer\cpu_cache_misses.hpp" />
     <ClInclude Include="src\6-Templates\template_policies.hpp" />
     <ClInclude Include="src\6-Templates\template_staticpolymorphism.hpp" />
     <ClInclude Include="src/6-Templates/template_mixin.hpp" />

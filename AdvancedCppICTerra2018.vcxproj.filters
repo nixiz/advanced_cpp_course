@@ -91,6 +91,9 @@
     <ClInclude Include="src\6-Templates\template_static_assert.hpp">
       <Filter>6- Templates</Filter>
     </ClInclude>
+    <ClInclude Include="src\3-SmartPointer\cpu_cache_misses.hpp">
+      <Filter>3- Smart Pointer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="2- Inheritance">
