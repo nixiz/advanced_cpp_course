@@ -73,32 +73,31 @@ namespace cpu_cache_misses {
     /*
     // checked way access of array
     struct two_dim_arr_access_helper {
-    explicit two_dim_arr_access_helper(T* _a) noexcept : arr(_a) { }
+      explicit two_dim_arr_access_helper(T* _a) noexcept : arr(_a) { }
 
-    T& operator[](unsigned int index) {
-    assert(arr[index] != nullptr);
-    return arr[index];
-    }
+      T& operator[](unsigned int index) {
+        assert(arr[index] != nullptr);
+        return arr[index];
+      }
 
-    T const& operator[](unsigned int index) const {
-    assert(arr[index] != nullptr);
-    return arr[index];
-    }
+      T const& operator[](unsigned int index) const {
+        assert(arr[index] != nullptr);
+        return arr[index];
+      }
     private:
-    T* arr;
+      T* arr;
     };
 
     two_dim_arr_access_helper operator[](unsigned int index) {
-    assert(data_[index] != nullptr);
-    return two_dim_arr_access_helper(data_[index]);
+      assert(data_[index] != nullptr);
+      return two_dim_arr_access_helper(data_[index]);
     }
 
     two_dim_arr_access_helper operator[](unsigned int index) const {
-    assert(data_[index] != nullptr);
-    return two_dim_arr_access_helper(data_[index]);
+      assert(data_[index] != nullptr);
+      return two_dim_arr_access_helper(data_[index]);
     }
     */
-
   private:
     Type** data_;
     unsigned int rowsize;
@@ -149,9 +148,6 @@ namespace cpu_cache_misses {
   };
 
   struct benchmarkresult {
-    //benchmarkresult() = default;
-    //benchmarkresult(std::string name) : testname(name) { }
-    
     void SetName(std::string name) {
       testname = name;
     }
@@ -159,16 +155,12 @@ namespace cpu_cache_misses {
     void AddSample(long long matrix_size, double time) {
       samplings.push_back(
         std::make_pair(matrix_size, time));
-      //matrix_sizes.push_back(matrix_size);
-      //elapsed_msec.push_back(time);
     }
 
     friend std::ostream& operator<<(std::ostream& os, const benchmarkresult& result);
   private:
     std::string testname;
     std::vector<std::pair<long long, double>> samplings; // matrix size (mb) - traversal sum time in milliseconds
-    //std::vector<long long> matrix_sizes; // matrix size (mb) - traversal sum time in milliseconds
-    //std::vector<double>    elapsed_msec; // matrix size (mb) - traversal sum time in milliseconds
   };
   
   std::ostream& operator<<(std::ostream& os, const benchmarkresult& result) {
@@ -186,18 +178,27 @@ namespace cpu_cache_misses {
 
 CREATE_ELEMENT_WITH_CODE(CpuCacheExample) {
   using namespace cpu_cache_misses;
-  constexpr size_t num_of_samplings = 10;
+  constexpr size_t num_of_iter = 5;
+  constexpr size_t done_before = 0;
 
   // initiate result map
   std::map<std::string, benchmarkresult> results;
   results["rowmajor"].SetName("rowmajor");
   results["columnmajor"].SetName("columnmajor");
 
-  for (size_t i = 0; i < num_of_samplings; i++)
+  for (size_t i = 0; i < num_of_iter; i++)
   {
-    auto dimsize = 1024 << i;
+    auto dimsize = 1024 << (i + done_before);
+    std::cout
+      << "\n------------------benchmark point------------------\n"
+      << "Matrix with size : " << dimsize << std::endl;
     MatrixSumBenchmarkHelper benchmarker{ dimsize };
+    std::cout
+      << "Starting benchmark for row major traversal" << std::endl;
     results["rowmajor"].AddSample(dimsize, benchmarker.start(TraversalOrder::RowMajor));
+
+    std::cout
+      << "Starting benchmark for column major traversal" << std::endl;
     results["columnmajor"].AddSample(dimsize, benchmarker.start(TraversalOrder::ColumnMajor));
   }
 
@@ -207,5 +208,4 @@ CREATE_ELEMENT_WITH_CODE(CpuCacheExample) {
     << "\n------------------------------------------------------\n"
     << results["columnmajor"]
     << std::endl;
-
 }
