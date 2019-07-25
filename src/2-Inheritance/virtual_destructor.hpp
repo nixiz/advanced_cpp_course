@@ -46,7 +46,7 @@ namespace virtualdestructor {
 #ifdef MSBUILD
       _nameSize = new Number(static_cast<decltype(Number::n)>(strlen(name)));
 #else
-      _nameSize = new Number(static_cast<decltype(Number::get())>(strlen(name)));
+      _nameSize = new Number(strlen(name));
 #endif
     }
     ~DerivedFromObject()

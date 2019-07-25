@@ -274,3 +274,5 @@ __pycache__/
 /Debug
 icterra-advanced-cpp-2018
 *.exe
+.DS_Store
+*.dSYM/
