@@ -1,0 +1,95 @@
+#pragma once
+#include <playground_organizer.hpp>
+#include <algorithm>
+#include <numeric>
+
+namespace packed_data_access
+{
+  struct AlignedStruct
+  {
+    char c;
+    double value;
+  };
+
+#ifdef WIN32
+
+#pragma pack(push,1)
+  struct PackedStruct
+  {
+    char c;
+    double value;
+  };
+#pragma pack(pop)
+
+  template <typename S, int Size>
+  struct StructCreator
+  {
+    StructCreator() : size(Size - 1)
+    {
+      auto len = size;
+      while (--len > 0)
+      {
+        arr[len].c = 'a' + (len % 20);
+        arr[len].value = len / 1000.0;
+      }
+    }
+    std::size_t size;
+    S arr[Size];
+  };
+  // Visual Studio compilers are crashing due to 
+  // their bugs when using nested constexpr structs
+  // bu sebepten dolayi derleyici zamani yerine programin 
+  // calistirildiginda static olarak yaratiyorum
+  static StructCreator<AlignedStruct, 1024 *1024> list;
+  static StructCreator<PackedStruct, 1024 * 1024> packed_list;
+
+#else
+  struct PackedStruct
+  {
+    char c;
+    double value;
+  } __atribute__((packed));
+
+
+  template <typename S, int Size>
+  struct StructCreator
+  {
+    constexpr StructCreator() : arr(), size(Size - 1)
+    {
+      auto len = size;
+      while (--len > 0)
+      {
+        arr[len].c = 'a' + (len % 20);
+        arr[len].value = len / 1000.0;
+      }
+    }
+    std::size_t size;
+    S arr[Size];
+  };
+#endif
+
+}
+
+auto sum_lambda = [] (int sum, const auto& s) {
+  return sum + (s.c * s.value);
+};
+
+//static packed_data_access::AlignedStruct list[1024];
+
+CREATE_ELEMENT_WITH_CODE(AlignedStructAccess) {
+  using namespace packed_data_access;
+#ifndef WIN32
+  constexpr auto list = StructCreator<AlignedStruct, 1024>();
+#endif
+  int sum = std::accumulate(&list.arr[0], &list.arr[list.size], 0, sum_lambda);
+  std::cout << "sum: " << sum << "\n";
+}
+
+CREATE_ELEMENT_WITH_CODE(PackedStructAccess) {
+  using namespace packed_data_access;
+#ifndef WIN32
+  constexpr auto packed_list = StructCreator<PackedStruct, 1024>();
+#endif
+  int sum = std::accumulate(&packed_list.arr[0], &packed_list.arr[list.size], 0, sum_lambda);
+  std::cout << "sum: " << sum << "\n";
+}
