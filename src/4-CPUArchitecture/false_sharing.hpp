@@ -69,8 +69,8 @@ namespace false_sharing
   {
     int test_2()
     {
-      std::atomic<int> a; a = 0; // &a: add
-      std::atomic<int> b; b = 0; // &b: add
+      std::atomic<int> a; a = 0;
+      std::atomic<int> b; b = 0;
 
       std::thread t1([&] { work(a); });
       std::thread t2([&] { work(b); });
@@ -81,9 +81,9 @@ namespace false_sharing
 
     int test_3()
     {
-      std::atomic<int> a; a = 0; // &a: add
-      std::atomic<int> b; b = 0; // &b: add
-      std::atomic<int> c; c = 0; // &c: add
+      std::atomic<int> a; a = 0;
+      std::atomic<int> b; b = 0;
+      std::atomic<int> c; c = 0;
 
       std::thread t1([&] { work(a); });
       std::thread t2([&] { work(b); });
@@ -95,10 +95,10 @@ namespace false_sharing
 
     int test_4()
     {
-      std::atomic<int> a; a = 0; // &a: add
-      std::atomic<int> b; b = 0; // &b: add
-      std::atomic<int> c; c = 0; // &c: add
-      std::atomic<int> d; d = 0; // &d: add
+      std::atomic<int> a; a = 0; // &a: 0x...b2f7c0
+      std::atomic<int> b; b = 0; // &b: 0x...b2f7c4
+      std::atomic<int> c; c = 0; // &c: 0x...b2f7c8
+      std::atomic<int> d; d = 0; // &d: 0x...b2f7cc
 
       std::thread t1([&] { work(a); });
       std::thread t2([&] { work(b); });
@@ -120,10 +120,10 @@ namespace false_sharing
 
     int test()
     {
-      aligned_type a; a.val = 0; // &a: add
-      aligned_type b; b.val = 0; // &b: add
-      aligned_type c; c.val = 0; // &c: add
-      aligned_type d; d.val = 0; // &d: add
+      aligned_type a; a.val = 0; // &a: 0x...4ff240
+      aligned_type b; b.val = 0; // &b: 0x...4ff280
+      aligned_type c; c.val = 0; // &c: 0x...4ff2c0
+      aligned_type d; d.val = 0; // &d: 0x...4ff300
 
       std::thread t1([&a] { work(a.val); });
       std::thread t2([&b] { work(b.val); });
@@ -150,10 +150,10 @@ namespace false_sharing
 
     int test()
     {
-      aligned_type a; a.val = 0; // &a: add
-      aligned_type b; b.val = 0; // &b: add
-      aligned_type c; c.val = 0; // &c: add
-      aligned_type d; d.val = 0; // &d: add
+      aligned_type a; a.val = 0; // &a: 0x...70f500
+      aligned_type b; b.val = 0; // &b: 0x...70f4c0
+      aligned_type c; c.val = 0; // &c: 0x...70f480
+      aligned_type d; d.val = 0; // &d: 0x...70f440
 
       std::thread t1([&] { work(a.val); });
       std::thread t2([&] { work(b.val); });

@@ -148,30 +148,38 @@ namespace exceptions {
       virtual int unwind() const = 0;
     };
 
-    void will_throw()
+    void will_throw(int should_throw)
     {
-      int x = 7;
+      // x degerinin delete edildigini gostermek icin custom deleter kullaniyorum
+      std::unique_ptr<int, std::function<void(int*)>> x(new int(7), [&](int *p) {
+        delete p;
+      });
       struct unwinder_impl : public unwinder
       {
-        int& val;                           // x ==> 8
-        unwinder_impl(int& _val) : val(_val) { ++val; printf("%s\n", __FUNCTION__); }
-                                            // x = 8
-        unwinder_impl(const unwinder_impl& oth) : val(oth.val) { printf("%s\n", __FUNCTION__); }
+        int* val;
+        unwinder_impl(int* _val) : val(_val) { 
+          ++(*val); 
+          printf("%s\n", __FUNCTION__); 
+        }
         ~unwinder_impl() { printf("%s\n", __FUNCTION__); }
 
         int unwind() const override
         {
-          return ++val; // x(val) = ?
+          //         val = ?
+          return ++(*val);
         }
-      } _unwinder{ x };
-      throw _unwinder;
+      };
+      // release build optimizasyonunu ekarte etmek icin
+      // random deger kullaniyorum
+      if (should_throw % 2 == 0)
+        throw unwinder_impl(x.get());
     }
 
     void usage()
     {
       try
       {
-        will_throw();
+        will_throw(rand());
       }
       catch (const unwinder& _unwinder)
       {
