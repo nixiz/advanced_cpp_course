@@ -166,10 +166,10 @@ namespace cpu_cache_misses {
   std::ostream& operator<<(std::ostream& os, const benchmarkresult& result) {
     os
       << "results of: " << result.testname << "\n"
-      << "matrix size (MB) \t elapsed time (ms)" << std::setw(5) << "\n";
+      << "matrix size (MB)\telapsed time (ms)" << std::setw(5) << "\n";
     for (size_t i = 0; i < result.samplings.size(); i++)
     {
-      os << result.samplings[i].first << "\t" << result.samplings[i].second << "\n";
+      os << "\t" << result.samplings[i].first << "\t\t" << result.samplings[i].second << "\n";
     }
     return os;
   }

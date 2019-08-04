@@ -136,12 +136,7 @@ int main(int argc, char *argv[]) {
         po.RunAll();
         break;
       case cmd_type::cmd:
-#ifdef WIN32
-        // add mscv build decorations
-        po.RunWithName({ std::string("class " + read_line) });
-#else
         po.RunWithName({ read_line });
-#endif
         break;
       case cmd_type::quit:
       default:
