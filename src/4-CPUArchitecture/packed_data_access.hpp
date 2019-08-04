@@ -44,12 +44,12 @@ namespace packed_data_access
   static StructCreator<PackedStruct, 1024 * 1024> packed_list;
 
 #else
-  struct PackedStruct
-  {
+//#include <cstdint>
+
+  struct PackedStruct {
     char c;
     double value;
-  } __atribute__((packed));
-
+  } __attribute__((packed));
 
   template <typename S, int Size>
   struct StructCreator
@@ -79,7 +79,7 @@ auto sum_lambda = [] (int sum, const auto& s) {
 CREATE_ELEMENT_WITH_CODE(AlignedStructAccess) {
   using namespace packed_data_access;
 #ifndef WIN32
-  constexpr auto list = StructCreator<AlignedStruct, 1024>();
+  constexpr auto list = StructCreator<AlignedStruct, 1024*10>();
 #endif
   int sum = std::accumulate(&list.arr[0], &list.arr[list.size], 0, sum_lambda);
   std::cout << "sum: " << sum << "\n";
@@ -88,8 +88,8 @@ CREATE_ELEMENT_WITH_CODE(AlignedStructAccess) {
 CREATE_ELEMENT_WITH_CODE(PackedStructAccess) {
   using namespace packed_data_access;
 #ifndef WIN32
-  constexpr auto packed_list = StructCreator<PackedStruct, 1024>();
+  constexpr auto packed_list = StructCreator<PackedStruct, 1024*10>();
 #endif
-  int sum = std::accumulate(&packed_list.arr[0], &packed_list.arr[list.size], 0, sum_lambda);
+  int sum = std::accumulate(&packed_list.arr[0], &packed_list.arr[packed_list.size], 0, sum_lambda);
   std::cout << "sum: " << sum << "\n";
 }

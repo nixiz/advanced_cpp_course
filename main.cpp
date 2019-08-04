@@ -103,10 +103,10 @@ int main(int argc, char *argv[]) {
     };
    
     auto ParseCmdLine = [](const std::string& line) -> cmd_type {
-      if (line == "q" || line == "quit") return{ cmd_type::quit };
-      else if (line == "?" || line == "menu") return{ cmd_type::menu };
-      else if (line == "r" || line == "all") return { cmd_type::runall };
-      else return { cmd_type::cmd };
+      if (line == "q" || line == "quit") return cmd_type::quit ;
+      else if (line == "?" || line == "menu") return cmd_type::menu;
+      else if (line == "r" || line == "all") return  cmd_type::runall;
+      else return cmd_type::cmd;
     };
 
     std::ostringstream o_str;

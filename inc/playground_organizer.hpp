@@ -1,6 +1,7 @@
 #ifndef _CPP_Playground_ORGANIZER_HPP_
 #define _CPP_Playground_ORGANIZER_HPP_
 
+#define MSTRING( L )  Stringize(L) 
 #define Stringize( L )     #L 
 #define MakeString( M, L ) M(L)
 #define $Line MakeString( Stringize, __LINE__ )
@@ -41,6 +42,8 @@ class ClassName :                       \
 public:                                 \
   ClassName() {}                        \
   void Run();                           \
+  constexpr const char* name() const  { \
+    return MSTRING(ClassName); }        \
 }
 
 #define ELEMENT_CODE(ClassName) void ClassName::Run()
@@ -151,7 +154,7 @@ namespace CppOrganizer
   class ICodeRunnerIdentifier {
     friend class PlaygroundOrganizer;
   public:
-    explicit ICodeRunnerIdentifier(const std::string& _name) :
+    explicit ICodeRunnerIdentifier(const char* _name) :
       id(quest_id++), name(_name) { }
 
     std::string getName() const {
@@ -223,7 +226,9 @@ namespace CppOrganizer
   template <class T>
   class CodeRunnerHelper : public ICodeRunnerIdentifier {
   public:
-    CodeRunnerHelper(const std::string& testName = typeid(T).name()) : ICodeRunnerIdentifier(testName) { }
+    // CodeRunnerHelper(const std::string& testName = typeid(T).name()) : ICodeRunnerIdentifier(testName) { }
+    CodeRunnerHelper() : 
+      ICodeRunnerIdentifier(static_cast<T const*>(this)->name()) { }
     virtual ~CodeRunnerHelper() {};
 
     void RunCode() override {
@@ -343,7 +348,7 @@ namespace CppOrganizer
 
     void PrintDetails() {
       std::for_each(_builder.m_pg_objects.begin(), _builder.m_pg_objects.end(), [](auto const& q) {
-        printf("\n%d. Playground id: %d\tname: %s", q->id, q->id, q->name.c_str());
+        printf("\n%02d. name: %s", q->id, q->name.c_str());
         //std::cout
         //  << q->id << ". " << "Playground id: " << q->id << "\tname: " << q->name << std::endl;
       });
