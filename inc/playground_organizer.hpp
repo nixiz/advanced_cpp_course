@@ -347,10 +347,9 @@ namespace CppOrganizer
     }
 
     void PrintDetails() {
+      printf("available items:");
       std::for_each(_builder.m_pg_objects.begin(), _builder.m_pg_objects.end(), [](auto const& q) {
-        printf("\n%02d. name: %s", q->id, q->name.c_str());
-        //std::cout
-        //  << q->id << ". " << "Playground id: " << q->id << "\tname: " << q->name << std::endl;
+        printf("\n%02d-name: %s", q->id, q->name.c_str());
       });
     }
 

@@ -67,7 +67,7 @@ namespace exceptions {
       {
         std::ostringstream exceptionStream;
         exceptionStream
-          << "ICTerra Exception Occured: "
+          << "STM Exception: "
           << "\nin line: " << line
           << "\nfile: " << file;
         if (message)
@@ -150,7 +150,7 @@ namespace exceptions {
 
     void will_throw(int should_throw)
     {
-      // x degerinin delete edildigini gostermek icin custom deleter kullaniyorum
+      // x degerinin delete edildigini gostermek icin custom deleter kullaniliyor
       std::unique_ptr<int, std::function<void(int*)>> x(new int(7), [&](int *p) {
         delete p;
       });
@@ -170,7 +170,6 @@ namespace exceptions {
         }
       };
       // release build optimizasyonunu ekarte etmek icin
-      // random deger kullaniyorum
       if (should_throw % 2 == 0)
         throw unwinder_impl(x.get());
     }

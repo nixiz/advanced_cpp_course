@@ -48,22 +48,20 @@ int CppOrganizer::ICodeRunnerIdentifier::quest_id = 0;
 int main(int argc, char *argv[]) {
     CppOrganizer::PlaygroundOrganizer po;
     po.builder()
-      // 2- inheritance
-      .Add<FriendUsageExample>()
-      .Add<InheritanceUsageExample>()
-      .Add<DynamicPolymorphismExample>()
-      .Add<StaticPolymorphismExample>()
+      // Inheritance
       .Add<DiamondProblemExample>()
       .Add<VirtualDestructorUsage>()
-      .Add<GoogleNoDestructor>()
-      // 3- smart pointers
+      .Add<FriendUsageExample>()
+      // Smart pointers
       .Add<MallocUsageExample>()
       .Add<SmartPointerUsage>()
       .Add<SharedPointerUsage>()
       .Add<WeakPointerUsage>()
       .Add<OldStyleSmartPointer>()
-      // 5- static usage
+      // Static Usage
       .Add<StaticUsageExample>()
+      // Exceptions
+      .Add<ExceptionUsage>()
       // CPU Architecture
       .Add<CpuCacheExample>()
       .Add<CountIfRandom>()
@@ -75,24 +73,23 @@ int main(int argc, char *argv[]) {
       .Add<FalseSharingSingleAtomic>()
       .Add<FalseSharingAtomicsInSingleCacheLine>()
       .Add<FalseSharingResolved>()
-      // 6- templates
+      // Templates
       .Add<TemplateInheritanceUsageExample>()
+      .Add<GoogleNoDestructor>()
       .Add<TemplateCrtpUsage>()
       .Add<TemplateContainerExample>()
       .Add<MixinTemplateExampleProblem>()
       .Add<MixinTemplateExample>()
       .Add<TemplatePolicies>()
-      .Add<TemplateDecltypeUsage>()
-      .Add<TemplateStaticAssert>()
-      // 7- exceptions
-      .Add<ExceptionUsage>()
-      // 8- custom comparators
+      // Custom Comparators
       .Add<CustomComparatorNeedExample>()
       .Add<CustomComparatorExample>()
-      // 9- async example
+      // Modern C++ Examples
       .Add<AsyncSequentialExample>()
       .Add<AsyncUsageExample>()
-      .Add<AsyncFutureUsageExample>();
+      .Add<AsyncFutureUsageExample>()
+      .Add<ReturnTypeDecleration>()
+      .Add<TemplateStaticAssert>();
     po.PrintDetails();
 
     enum cmd_type {
@@ -111,15 +108,12 @@ int main(int argc, char *argv[]) {
 
     std::ostringstream o_str;
     o_str
-      << "\n\n"
-      << "Lutfen asagida belirtilenlerden birini girerek devam ediniz:\n"
-      << "programdan cikmak icin: \"q\" \"quit\"\n"
-      << "menu icin \"?\" veya \"menu\" yazarak\n"
-      << "butun kodlari calistirmak icin: \"all\"\n"
-      << "ilgili kodu calistirmak icin asagidaki yontemlerden birini uygulayin:\n"
-      //<< " - \"id\" ile çalýþtýrmak için ilgili kodun id'si"
-      << " - ismi ile calistirmak icin \"name: \" kisminda yazan ismi\n"
-      << "girerek programa devam edebilirsiniz";
+      << "\n"
+      << "\nplease enter one of following commands:"
+      << "\nquit program: \"q\" or \"quit\""
+      << "\nfor available items \"?\" or \"menu\""
+      << "\nrun all: \"all\""
+      << "\nor enter name of item you want to run:";
     std::cout << o_str.str() << std::endl;
 
     const std::string escape_char{"q"};

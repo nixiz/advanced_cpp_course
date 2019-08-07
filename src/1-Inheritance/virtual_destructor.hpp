@@ -43,7 +43,7 @@ namespace virtualdestructor {
     {
       printf("\nDerivedFromObject created: %s", name);
       // ! gcc has a bug for decltype of private member !
-#ifdef MSBUILD
+#ifdef WIN32
       _nameSize = new Number(static_cast<decltype(Number::n)>(strlen(name)));
 #else
       _nameSize = new Number(strlen(name));
@@ -57,7 +57,7 @@ namespace virtualdestructor {
   };
 
   template <class Object>
-  inline void _usage() {
+  void Usage() {
     std::vector<std::unique_ptr<Object>> objectArray;
     // populate vector
     for (size_t i = 0; i < 2; i++)
@@ -71,11 +71,11 @@ namespace virtualdestructor {
   }
 
   void Problem() {
-    _usage<problem::Object>();
+    Usage<problem::Object>();
   }
 
   void Solution() {
-    _usage<solution::Object>();
+    Usage<solution::Object>();
   }
 } // namespace virtualdestructor
 

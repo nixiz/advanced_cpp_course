@@ -69,35 +69,6 @@ namespace cpu_cache_misses {
     Type* operator[](unsigned int index) const {
       return data_[index];
     }
-
-    /*
-    // checked way access of array
-    struct two_dim_arr_access_helper {
-      explicit two_dim_arr_access_helper(T* _a) noexcept : arr(_a) { }
-
-      T& operator[](unsigned int index) {
-        assert(arr[index] != nullptr);
-        return arr[index];
-      }
-
-      T const& operator[](unsigned int index) const {
-        assert(arr[index] != nullptr);
-        return arr[index];
-      }
-    private:
-      T* arr;
-    };
-
-    two_dim_arr_access_helper operator[](unsigned int index) {
-      assert(data_[index] != nullptr);
-      return two_dim_arr_access_helper(data_[index]);
-    }
-
-    two_dim_arr_access_helper operator[](unsigned int index) const {
-      assert(data_[index] != nullptr);
-      return two_dim_arr_access_helper(data_[index]);
-    }
-    */
   private:
     Type** data_;
     unsigned int rowsize;

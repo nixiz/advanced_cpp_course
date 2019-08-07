@@ -10,7 +10,7 @@ namespace diamondproblem {
   using TemplateInheritanceUsage::TemplateSolution::Singleton;
 
   class Object;
-  class ICTerraFrameworkObjectManager : public Singleton<ICTerraFrameworkObjectManager> {
+  class STMFrameworkObjectManager : public Singleton<STMFrameworkObjectManager> {
     friend class Object;
   public:
     void printObjects() const;
@@ -31,11 +31,11 @@ namespace diamondproblem {
 
   class Object {
   public:
-    explicit Object(const char *name = "ICTerra Object") : _name(name) {
-      ICTerraFrameworkObjectManager::getInstance().RegisterObject(this);
+    explicit Object(const char *name = "STM Object") : _name(name) {
+      STMFrameworkObjectManager::getInstance().RegisterObject(this);
     }
     virtual ~Object() {
-      ICTerraFrameworkObjectManager::getInstance().UnregisterObject(this);
+      STMFrameworkObjectManager::getInstance().UnregisterObject(this);
     }
     std::string getName() const {
       return _name;
@@ -45,7 +45,7 @@ namespace diamondproblem {
   };
 
   //
-  void ICTerraFrameworkObjectManager::printObjects() const {
+  void STMFrameworkObjectManager::printObjects() const {
     printf("\ntotal alive objects: %I64d", _totalObjects);
     for (Object* obj : registeredObjects)
     {
@@ -57,16 +57,16 @@ namespace diamondproblem {
   namespace problem {
 
     class ComponentA : public Object {
-    public: ComponentA() : Object("ICTerra ComponentA") { }
+    public: ComponentA() : Object("STM ComponentA") { }
     };
 
     class ComponentB : public Object {
-    public: ComponentB() : Object("ICTerra ComponentB") { }
+    public: ComponentB() : Object("STM ComponentB") { }
     };
 #pragma warning( push )
 #pragma warning( disable : 4584) // disable compiler warning for multiple base class inheritance
-    class CompoisiteComponent : public Object, public ComponentA {
-    public: CompoisiteComponent() : Object("ICTerra CompoisiteComponent") { }
+    class CompositeComponent : public Object, public ComponentA {
+    public: CompositeComponent() : Object("STM CompositeComponent") { }
     };
 #pragma warning( pop ) 
 
@@ -75,21 +75,21 @@ namespace diamondproblem {
   namespace solution {
 
     class ComponentA : virtual public Object {
-    public: ComponentA() : Object("ICTerra ComponentA") { }
+    public: ComponentA() : Object("STM ComponentA") { }
     };
 
     class ComponentB : virtual public Object {
-    public: ComponentB() : Object("ICTerra ComponentB") { }
+    public: ComponentB() : Object("STM ComponentB") { }
     };
 
-    class CompoisiteComponent : public ComponentB, public ComponentA {
-    public: CompoisiteComponent() : Object("ICTerra CompoisiteComponent") { }
+    class CompositeComponent : public ComponentB, public ComponentA {
+    public: CompositeComponent() : Object("STM CompositeComponent") { }
     };
 
   }  // namespace problem
 
   void PrintObjects() {
-    ICTerraFrameworkObjectManager::getInstance().printObjects();
+    STMFrameworkObjectManager::getInstance().printObjects();
   }
 }  // namespace diamondproblem
 
@@ -98,7 +98,7 @@ CREATE_ELEMENT_WITH_CODE(DiamondProblemExample) {
   {
     dp::problem::ComponentA a;
     dp::problem::ComponentB b;
-    dp::problem::CompoisiteComponent cc;
+    dp::problem::CompositeComponent cc;
     dp::PrintObjects();
   }
   dp::PrintObjects();
@@ -106,7 +106,7 @@ CREATE_ELEMENT_WITH_CODE(DiamondProblemExample) {
   {
     dp::solution::ComponentA a;
     dp::solution::ComponentB b;
-    dp::solution::CompoisiteComponent cc;
+    dp::solution::CompositeComponent cc;
     dp::PrintObjects();
   }
   dp::PrintObjects();
