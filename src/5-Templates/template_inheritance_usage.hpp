@@ -98,7 +98,7 @@ namespace TemplateInheritanceUsage {
         // peki buradaki Arg1 tipinin parametre signature'ı nasıl olmalı
         // const Arg1& | Arg1 * | ... ?
         template <typename Arg1>
-        static T& getInstance(Arg1 a1)
+        static T& getInstance(const Arg1& a1)
         {
           static T inst(a1); return inst;
         }
@@ -252,42 +252,12 @@ CREATE_ELEMENT_WITH_CODE(TemplateInheritanceUsageExample) {
     std::cout << "Address of MySingletonClassA: " << &ft::MySingletonClassA::getInstance() << std::endl;
     ft::MySingletonClassB::getInstance().bar();
   }
-  /*
-    TODO(oguzhank): TemplateSolution anlattıktan sonra variadic template kullanımını anlatmalısın!
-  */
+
   {
     namespace ft = TemplateInheritanceUsage::VariadicTemplateSolution;
     std::cout << "Address of MySingletonClassA: " << &ft::MySingletonClassA::getInstance(10) << std::endl;
     std::cout << "Address of MySingletonClassA: " << &ft::MySingletonClassA::getInstance(5) << std::endl;
     ft::MySingletonClassB::getInstance().bar();
-    /*
-      Burada bir kaç tane problem var:
-        1.  Singleton<T> sınıfından kalıtım yapmak güzel bir çözüm değil.
-            Polymorphic yapılarda veya çoklu kalıtımın mümkün olmadığı yerlerde uygulanamaz.
-        2.  Aynı şekilde yukarıdaki gibi kullanım olduğunda sınıfların Ctor'unu gizlemek gerekmektedir
-            Bu her zaman yapabileceğimiz bir şey değil; örneğin Qt içerisindeki sınıfların default ctor'unun
-            her zaman public olması gerekmektedir.
-        3.  Default Ctor'u olmayan sınıflar için Singleton<T>::getInstance() metodu kullanılması
-            kullanışlı olmayacaktır. Yukarıdaki örnekte de görüleceği gibi "getInstance()" metodunu
-            her çağırışımızda ilgili sınıfın Ctor'unda yer alan parametreleri vermemiz gerekecektir
-            ki bu hiç de güzel ve kullanışlı bir yöntem değil.
-      Yukarıdaki problemlerin çözümü için yeni ve farklı bir generik singleton tasarımı düşünmemiz gerekmektedir.
-      Aynı şekilde yeni tasarımda singleton yapmak istediğimiz sınıfı, istersek singleton olmadan da kullanabilmeliyiz.
-      Örnek olarak 'ClassA' sınıfını hem singleton hem de başka bir yerde normal bir instance olarak kullanmak isteyebiliriz.
-      Kullanım şekli kabaca aşağıdaki gibi bir tasarıma ihtiyacımız var:
-        ClassA instance(param1, ..., paramN); // normal instance kullanımı
-        file1.cpp :
-        Singleton<ClassA> singleton_instance(param1, ..., paramN) // singleton kullanımı. yaratılan nesne 0xBABA adresinde yer alıyor olsun
-        file2.cpp :
-        Singleton<ClassA> singleton_instance; // buradaki nesne de aynı adresteki singleton ClassA sınıfını kullanacaktır
-
-        veya yaratmak istediğimiz yerde aşağıdaki gibi yaratıp
-        Singleton<ClassA>::createInstance(param1, ..., paramN);
-        kullandığımız yerlerde ise klasik erişim şekliyle erişebiliriz
-        Singleton<ClassA>::getInstance()->foo();
-
-      Bu tasarımın son hali yukarıda yer almaktadır.
-    */
   }
 
   TemplateInheritanceUsage::CorrectSingletonDesign::usage();

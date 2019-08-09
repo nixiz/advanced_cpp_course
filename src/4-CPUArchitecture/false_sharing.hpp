@@ -135,7 +135,7 @@ namespace false_sharing
     }
   }
 
-  namespace false_sharing_resolved_windows_specific
+  namespace false_sharing_resolved_noatomic
   {
     struct alignas(64) aligned_type
     {
@@ -268,10 +268,10 @@ CREATE_ELEMENT_WITH_CODE(FalseSharingResolved) {
     std::cout << "result: " << std::to_string(result) << "\n";
   }
   {
-    std::cout << "windows specific: \n";
+    std::cout << "thread local variable: \n";
     clock::time_point start = clock::now();
 
-    auto result = false_sharing::false_sharing_resolved_windows_specific::test();
+    auto result = false_sharing::false_sharing_resolved_noatomic::test();
 
     duration elapsed = clock::now() - start;
     std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution

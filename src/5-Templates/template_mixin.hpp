@@ -21,7 +21,8 @@ namespace mixin {
       virtual int get() const = 0;
     };
 
-    namespace approach_using_inheritance {
+    namespace approach_using_inheritance 
+    {
       // ve bu number interface'ine uygun olan sýnýflar için undo özelliði 
       // eklemek isteyelim. bunun için de aþaðýdaki abstract sýnýfý yazalým
       class IUndoableNumber : public INumber {
@@ -92,7 +93,8 @@ namespace mixin {
 
     } // namespace approach_using_inheritance
 
-    namespace approach_using_composition_strategy_pattern {
+    namespace approach_using_composition_strategy_pattern 
+    {
 
       class IUndoableNumber : public INumber {
       protected:
@@ -244,7 +246,8 @@ namespace mixin {
     } // namespace approach_reversed_inheritance
   } // namespace problem
 
-  namespace solution {
+  namespace solution 
+  {
 
     template <typename Base>
     struct Undoable : public Base {

@@ -6,41 +6,18 @@
 #include <vector>
 #include <chrono>
 
-namespace branch_prediction
-{
-
-  struct price
-  {
-    virtual ~price() {}
-    virtual float getPrice() const noexcept { return 1.0; }
-  };
-
-  struct cheap : public price
-  {
-    float getPrice() const noexcept override { return 2.0; }
-  };
-
-  struct expensive : public price
-  {
-    float getPrice() const noexcept override { return 3.14159; }
-  };
-
-} // namespace branch_prediction
-
-
-
 CREATE_ELEMENT_WITH_CODE(CountIfRandom) {
   using clock = std::chrono::high_resolution_clock;
   using duration = std::chrono::duration<double, std::micro>;
 
-  std::vector<float> v(32768);
+  std::vector<float> v(65536);
   std::generate(std::begin(v), std::end(v), [] {
     return (rand() % 2) ? 1 : -1;
   });
 
   clock::time_point start = clock::now();
 
-  int result = std::count_if(std::begin(v), std::end(v), [](auto x) {
+  int result = std::count_if(std::begin(v), std::end(v), [](float x) {
     return x > 0;
   });
 
@@ -53,7 +30,7 @@ CREATE_ELEMENT_WITH_CODE(CountIfSorted) {
   using clock = std::chrono::high_resolution_clock;
   using duration = std::chrono::duration<double, std::micro>;
 
-  std::vector<float> v(32768);
+  std::vector<float> v(65536);
   std::generate(std::begin(v), std::end(v), [] {
     return (rand() % 2) ? 1 : -1;
   });
@@ -62,7 +39,7 @@ CREATE_ELEMENT_WITH_CODE(CountIfSorted) {
 
   clock::time_point start = clock::now();
 
-  int result = std::count_if(std::begin(v), std::end(v), [](auto x) {
+  int result = std::count_if(std::begin(v), std::end(v), [](float x) {
     return x > 0;
   });
 
@@ -70,6 +47,27 @@ CREATE_ELEMENT_WITH_CODE(CountIfSorted) {
   std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
   std::cout << "result: " << result << "\n";
 }
+
+namespace branch_prediction
+{
+
+struct price
+{
+  virtual ~price() {}
+  virtual float getPrice() const noexcept { return 1.0; }
+};
+
+struct cheap : public price
+{
+  float getPrice() const noexcept override { return 2.0; }
+};
+
+struct expensive : public price
+{
+  float getPrice() const noexcept override { return 3.14159; }
+};
+
+} // namespace branch_prediction
 
 CREATE_ELEMENT_WITH_CODE(VirtualCallsSequenced) {
   using namespace branch_prediction;

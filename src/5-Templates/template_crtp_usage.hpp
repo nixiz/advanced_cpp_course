@@ -75,11 +75,11 @@ namespace traits
       coll.push_back(&c);         // insert circle
       drawElems(coll);            // draw different kinds of GeoObjs
 
-      std::cout << l.number_of_draws() << " line(s) drawed" << std::endl;
-      std::cout << c.number_of_draws() /*+ c1.number_of_draws() + c2.number_of_draws() */<< " circle(s) drawed" << std::endl;
+      std::cout << l.number_of_draws() << " line(s) drawn" << std::endl;
+      std::cout << c.number_of_draws() /*+ c1.number_of_draws() + c2.number_of_draws() */
+                << " circle(s) drawn" << std::endl;
       std::cout << "what should be total draws for circle?!?" << std::endl;
     }
-
 
   } // namespace problem
 
@@ -151,12 +151,10 @@ namespace traits
       coll.push_back(l);          // insert line
       drawElems(coll);            // draw all lines
 
-      std::cout << l.number_of_draws() << " line(s) drawed" << std::endl;
-      std::cout << c.number_of_draws() << " circle(s) drawed" << std::endl;
+      std::cout << l.number_of_draws() << " line(s) drawn" << std::endl;
+      std::cout << c.number_of_draws() << " circle(s) drawn" << std::endl;
     }
     
-    // !!sonrasýnda c++11 type_trait'leri anlatabilirsin!! 
-
   } // namespace solution
 
 } // namespace traits

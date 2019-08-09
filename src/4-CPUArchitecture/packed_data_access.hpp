@@ -70,11 +70,14 @@ namespace packed_data_access
 
 }
 
+// iki yapinin icerdigi veriler ayni olsa da uzunluklari farkli olacaktir
+constexpr auto AlignedStructSize = sizeof(packed_data_access::AlignedStruct);
+constexpr auto PackedStructSize = sizeof(packed_data_access::PackedStruct);
+static_assert(AlignedStructSize != PackedStructSize, "packed struct size must be less than aligned one!");
+
 auto sum_lambda = [] (int sum, const auto& s) {
   return sum + (s.c * s.value);
 };
-
-//static packed_data_access::AlignedStruct list[1024];
 
 CREATE_ELEMENT_WITH_CODE(AlignedStructAccess) {
   using namespace packed_data_access;

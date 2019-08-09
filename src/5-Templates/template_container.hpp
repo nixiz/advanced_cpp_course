@@ -2,6 +2,7 @@
 #include <playground_organizer.hpp>
 #include <iostream>
 #include <string>
+#include <tuple>
 
 namespace template_container {
 
@@ -30,16 +31,14 @@ namespace template_container {
     std::cout << v.name() << std::endl;
   }
   
-  class GeoObjWithName {
+  class GeoObjContainer
+  {
   public:
     template<typename T>
-    GeoObjWithName(const T& obj)
-      : inner_(std::make_unique<Holder<T> >(obj))
-    {
-
-    }
-    const std::string name() const
-    {
+    GeoObjContainer(const T& obj)
+      : inner_(std::make_unique<Holder<T> >(obj)) { }
+    
+    const std::string name() const {
       return inner_->name();
     }
 
@@ -51,10 +50,7 @@ namespace template_container {
 
     template<typename T>
     struct Holder : public HolderBase {
-      Holder(const T& obj)
-        : obj_(obj)
-      {
-      }
+      Holder(const T& obj) : obj_(obj) { }
       const std::string name() const override
       {
         return obj_.name();
@@ -64,22 +60,21 @@ namespace template_container {
     std::unique_ptr<HolderBase> inner_;
   };
 
-  void printName(const GeoObjWithName& v)
+  void printName(const GeoObjContainer& v)
   {
     std::cout << v.name() << std::endl;
   }
 
 } // namespace template_container 
 
-
 CREATE_ELEMENT_WITH_CODE(TemplateContainerExample) {
   using namespace template_container;
-  std::vector<GeoObjWithName *> vec;
-  vec.push_back(new GeoObjWithName(Line{}));
-  vec.push_back(new GeoObjWithName(Circle{}));
-  GeoObjWithName l(Line{});
+  std::vector<GeoObjContainer*> vec;
+  vec.push_back(new GeoObjContainer(Line{}));
+  vec.push_back(new GeoObjContainer(Circle{}));
+  GeoObjContainer l(Line{});
   printName(l);
 
-  GeoObjWithName c(Circle{});
+  GeoObjContainer c(Circle{});
   printName(c);
 }
