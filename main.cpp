@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
       .Add<SmartPointerUsage>()
       .Add<SharedPointerUsage>()
       .Add<WeakPointerUsage>()
+      .Add<WeakPointerUsageRealWorld>()
       .Add<OldStyleSmartPointer>()
       // Static Usage
       .Add<StaticUsageExample>()

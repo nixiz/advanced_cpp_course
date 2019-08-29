@@ -239,7 +239,7 @@ namespace weakpointer {
 
 } // namespace weakpointer
 
-CREATE_ELEMENT_WITH_CODE(WeakPointerUsage) {
+CREATE_ELEMENT_WITH_CODE(WeakPointerUsageRealWorld) {
   using namespace weakpointer;
   problem::definition::ProblemDemo::Demonstrate();
   problem::sharedptr::ProblemDemo::Demonstrate();
