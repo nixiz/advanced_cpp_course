@@ -9,6 +9,7 @@
 #define PrintWarn  __FILE__ "(" $Line ") : Warning: "
 
 #include <memory>
+#include <string>
 #include <vector>
 #include <set>
 #include <algorithm>
@@ -275,7 +276,7 @@ namespace CppOrganizer
   // Add helper without using macro
   //template <class ClassName, typename ...Args>
   //std::shared_ptr<ClassName> Add(Args&&... args) {
-  //  // ctor'da debug edebilmek için
+  //  // ctor'da debug edebilmek iÃ§in
   //  return std::shared_ptr<ClassName>(new ClassName(std::forward<Args>(args)...));
   //  //return std::make_shared<ClassName, Args...>(std::forward<Args>(args)...);
   //}
