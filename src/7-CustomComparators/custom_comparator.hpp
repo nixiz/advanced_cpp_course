@@ -54,9 +54,9 @@ namespace ccn {
     }
   };
 
-  // Sadece Student tipteki iterator tipleri iÁin geÁerli olacakt˝r.
-  // Bu sayede, fonksiyon iÁerisinde begin -> end aras˝ndaki iterasyonlarda 
-  // Student s˝n˝f˝n˝n ˆzelliklerine eri˛ebileceimiz garanti alt˝na alm˝˛ oluyoruz.
+  // Sadece Student tipteki iterator tipleri i√ßin ge√ßerli olacakt√Ωr.
+  // Bu sayede, fonksiyon i√ßerisinde begin -> end aras√Ωndaki iterasyonlarda 
+  // Student s√Ωn√Ωf√Ωn√Ωn √∂zelliklerine eri√æebilece√∞imiz garanti alt√Ωna alm√Ω√æ oluyoruz.
   template <typename Iter, 
     typename = typename std::enable_if<
     std::is_same<typename std::iterator_traits<Iter>::value_type, Student*>::value>::type >
@@ -79,13 +79,13 @@ namespace ccn {
   namespace solution {
 
     struct AddStudentAverageAscending {
-      bool operator()(Student* lhs, Student* rhs) {
+      bool operator()(Student* lhs, Student* rhs) const {
         return lhs->getAverage() < rhs->getAverage();
       }
     };
 
     struct AddStudentAverageDescending {
-      bool operator()(Student* lhs, Student* rhs) {
+      bool operator()(Student* lhs, Student* rhs) const {
         return lhs->getAverage() > rhs->getAverage();
       }
     };
