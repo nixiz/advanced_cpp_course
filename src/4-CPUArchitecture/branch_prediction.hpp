@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <chrono>
+#include <iterator>
 
 CREATE_ELEMENT_WITH_CODE(CountIfRandom) {
   using clock = std::chrono::high_resolution_clock;
