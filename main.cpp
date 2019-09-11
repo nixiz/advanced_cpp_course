@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
       .Add<SmartPointerUsage>()
       .Add<SharedPointerUsage>()
       .Add<WeakPointerUsage>()
+      .Add<SharedPointerPoolUsage>()
       .Add<WeakPointerUsageRealWorld>()
       .Add<OldStyleSmartPointer>()
       // Static Usage
@@ -66,6 +67,7 @@ int main(int argc, char *argv[]) {
       // CPU Architecture
       .Add<CpuCacheExample>()
       .Add<CountIfRandom>()
+      .Add<CountIfSequenced>()
       .Add<CountIfSorted>()
       .Add<VirtualCallsSequenced>()
       .Add<VirtualCallsShuffled>()

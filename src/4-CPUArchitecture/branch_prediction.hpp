@@ -27,6 +27,26 @@ CREATE_ELEMENT_WITH_CODE(CountIfRandom) {
   std::cout << "result: " << result << "\n";
 }
 
+CREATE_ELEMENT_WITH_CODE(CountIfSequenced) {
+  using clock = std::chrono::high_resolution_clock;
+  using duration = std::chrono::duration<double, std::micro>;
+
+  std::vector<float> v(65536);
+  std::generate(std::begin(v), std::end(v), [n = 0] () mutable {
+    return (++n % 2) ? 1 : -1;
+  });
+
+  clock::time_point start = clock::now();
+
+  int result = std::count_if(std::begin(v), std::end(v), [](float x) {
+    return x > 0;
+  });
+
+  duration elapsed = clock::now() - start;
+  std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
+  std::cout << "result: " << result << "\n";
+}
+
 CREATE_ELEMENT_WITH_CODE(CountIfSorted) {
   using clock = std::chrono::high_resolution_clock;
   using duration = std::chrono::duration<double, std::micro>;

@@ -3,6 +3,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <future>
 #include "inc/number.hpp"
 
 namespace sharedpointer {
@@ -93,6 +94,75 @@ namespace sharedpointer {
       std::chrono::milliseconds((rand() % 300) + 200));
   }
 
+  class SharedPointerReleasePool
+  {
+  public:
+    SharedPointerReleasePool() : is_active(true)
+    {
+      timer = std::thread([pool = this] {
+        while (pool->is_active)
+        {
+          std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+          pool->CheckAndClearPointers();
+        }
+      });
+    }
+
+    template <typename T>
+    void Append(const std::shared_ptr<T>& object)
+    {
+      if (!object) return;
+      std::lock_guard<std::mutex> lock(guard);
+      pool.push_back(object);
+    }
+       
+    ~SharedPointerReleasePool()
+    {
+      is_active = false;
+      timer.join();
+      pool.clear();
+    }
+
+    void CheckAndClearPointers() noexcept
+    {
+      std::lock_guard<std::mutex> lock(guard);
+      pool.erase(
+        std::remove_if(std::begin(pool), std::end(pool), [](const auto& ptr) {
+          return ptr.use_count() <= 1;
+      }), pool.end());
+    }
+    std::atomic<bool> is_active;
+  private:
+    std::vector<std::shared_ptr<void>> pool;
+    std::mutex guard;
+    std::thread timer;
+  };
+
+  void usage_release_pool()
+  {
+    SharedPointerReleasePool rp;
+    std::shared_ptr<Number> num(new Number);
+    rp.Append(num);
+
+    {
+      std::shared_ptr<int> ptr(new int(8));
+      rp.Append(ptr);
+    }
+
+    {
+      std::shared_ptr<Number> ptr(new Number(18));
+      rp.Append(ptr);
+    }
+
+    std::this_thread::sleep_for(
+      std::chrono::milliseconds(1200));
+
+    {
+      std::shared_ptr<int> ptr(new int(8));
+      rp.Append(ptr);
+    }
+  }
+
 } // namespace sharedpointer
 
 CREATE_ELEMENT_WITH_CODE(SharedPointerUsage) {
@@ -104,4 +174,9 @@ CREATE_ELEMENT_WITH_CODE(SharedPointerUsage) {
 CREATE_ELEMENT_WITH_CODE(WeakPointerUsage) {
   using namespace sharedpointer;
   usage_weak_ptr();
+}
+
+CREATE_ELEMENT_WITH_CODE(SharedPointerPoolUsage) {
+  using namespace sharedpointer;
+  usage_release_pool();
 }
