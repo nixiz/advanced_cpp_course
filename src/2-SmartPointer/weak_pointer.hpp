@@ -18,7 +18,7 @@ namespace weakpointer {
         public:
           Observer(TopicPublisher *topic) : _topicPtr(topic), disabledUnregister(false) {
             _topicPtr->RegisterObserver(this);
-          }          
+          }
           virtual ~Observer()
           {
             // hatayý gerçekleþtirebilmek için
@@ -78,12 +78,12 @@ namespace weakpointer {
           /*
           int *ptr = new int(10);
           int *ptrDup = ptr;
-          
+
           delete ptr;
-          // ptrDup still points to the memory location pointed by ptr which no longer exists. 
-          // So, deferencing ptrDup results undefined behavior. 
+          // ptrDup still points to the memory location pointed by ptr which no longer exists.
+          // So, deferencing ptrDup results undefined behavior.
           */
-          
+
           // enable below line will cause undefined behaivor for deleted observer.
           //topic.UpdateTopic("will crash application");
         }

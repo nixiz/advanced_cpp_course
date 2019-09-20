@@ -68,7 +68,7 @@ namespace crtp {
     // draw heterogeneous collection of GeoObjs
     void drawElems(std::vector<GeoObj*> const& elems)
     {
-      for (unsigned i = 0; i<elems.size(); ++i) {
+      for (unsigned i = 0; i < elems.size(); ++i) {
         elems[i]->draw();  // call draw() according to type of element
       }
     }
@@ -131,7 +131,7 @@ namespace crtp {
     template <typename GeoObj>
     void drawElems(std::vector<GeoObj> const& elems)
     {
-      for (unsigned i = 0; i<elems.size(); ++i) {
+      for (unsigned i = 0; i < elems.size(); ++i) {
         elems[i].draw();    // call draw() according to type of element
       }
     }

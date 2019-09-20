@@ -177,7 +177,7 @@ namespace CppOrganizer
   class CodeExecuteBenchmark {
   public:
     template <typename Fun>
-    explicit CodeExecuteBenchmark(const Fun& func, const ICodeRunnerIdentifier& iden_) 
+    explicit CodeExecuteBenchmark(const Fun& func, const ICodeRunnerIdentifier& iden_)
     {
       using clock = std::chrono::high_resolution_clock;
       using duration = std::chrono::duration<double, std::milli>;
@@ -228,7 +228,7 @@ namespace CppOrganizer
   class CodeRunnerHelper : public ICodeRunnerIdentifier {
   public:
     // CodeRunnerHelper(const std::string& testName = typeid(T).name()) : ICodeRunnerIdentifier(testName) { }
-    CodeRunnerHelper() : 
+    CodeRunnerHelper() :
       ICodeRunnerIdentifier(static_cast<T const*>(this)->name()) { }
     virtual ~CodeRunnerHelper() {};
 
@@ -276,7 +276,7 @@ namespace CppOrganizer
   // Add helper without using macro
   //template <class ClassName, typename ...Args>
   //std::shared_ptr<ClassName> Add(Args&&... args) {
-  //  // ctor'da debug edebilmek iÃ§in
+  //  // ctor'da debug edebilmek için
   //  return std::shared_ptr<ClassName>(new ClassName(std::forward<Args>(args)...));
   //  //return std::make_shared<ClassName, Args...>(std::forward<Args>(args)...);
   //}

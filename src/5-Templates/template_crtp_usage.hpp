@@ -49,7 +49,7 @@ namespace traits
     // draw heterogeneous collection of GeoObjs
     void drawElems(std::vector<GeoObj*> const& elems)
     {
-      for (unsigned i = 0; i<elems.size(); ++i) {
+      for (unsigned i = 0; i < elems.size(); ++i) {
         elems[i]->draw();  // call draw() according to type of element
       }
     }
@@ -77,14 +77,14 @@ namespace traits
 
       std::cout << l.number_of_draws() << " line(s) drawn" << std::endl;
       std::cout << c.number_of_draws() /*+ c1.number_of_draws() + c2.number_of_draws() */
-                << " circle(s) drawn" << std::endl;
+        << " circle(s) drawn" << std::endl;
       std::cout << "what should be total draws for circle?!?" << std::endl;
     }
 
   } // namespace problem
 
   namespace solution {
-    
+
     // forward decleration of GeoObjTraits base trait class
     template <typename derived>
     struct GeoObjTraits {
@@ -130,7 +130,7 @@ namespace traits
     template <typename GeoObj>
     void drawElems(std::vector<GeoObj> const& elems)
     {
-      for (unsigned i = 0; i<elems.size(); ++i) {
+      for (unsigned i = 0; i < elems.size(); ++i) {
         elems[i].draw();    // call draw() according to type of element
       }
     }
@@ -154,7 +154,7 @@ namespace traits
       std::cout << l.number_of_draws() << " line(s) drawn" << std::endl;
       std::cout << c.number_of_draws() << " circle(s) drawn" << std::endl;
     }
-    
+
   } // namespace solution
 
 } // namespace traits
@@ -164,5 +164,3 @@ CREATE_ELEMENT_WITH_CODE(TemplateCrtpUsage) {
   problem::usage();
   solution::usage();
 }
-
-

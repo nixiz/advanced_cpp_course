@@ -23,19 +23,19 @@ namespace StaticUsage {
   private:
     CountedObject() = default;
     static unsigned int _id;
-  };  
+  };
   //static
   unsigned int CountedObject::_id = 0;
 }
 
 CREATE_ELEMENT_WITH_CODE(StaticUsageExample) {
   using namespace StaticUsage;
-  std::thread t1( []() {
+  std::thread t1([]() {
     for (size_t i = 0; i < 10; i++)
     {
       CountedObject::CreateNew();
     }
-  } );
+  });
   for (size_t i = 0; i < 10; i++)
   {
     CountedObject::CreateNew();

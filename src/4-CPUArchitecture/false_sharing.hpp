@@ -1,5 +1,6 @@
 #pragma once
 #include <playground_organizer.hpp>
+#include <benchmarker.hpp>
 #include <atomic>
 #include <thread>
 #include <iostream>
@@ -14,6 +15,14 @@ namespace false_sharing
   {
     for (int i = 0; i < 10000; ++i)
       a++;
+  }
+
+  void work_with_sentinel(std::atomic<int>& a)
+  {
+    unsigned int sentinel = 0;
+    for (int i = 0; i < 10000; ++i)
+      ++sentinel;
+    a += sentinel;
   }
 
   namespace sharing_single_atomic
@@ -59,6 +68,19 @@ namespace false_sharing
       std::thread t2([&] { work(a); });
       std::thread t3([&] { work(a); });
       std::thread t4([&] { work(a); });
+
+      t1.join(); t2.join(); t3.join(); t4.join();
+      return a;
+    }
+
+    int test_4_sentinel()
+    {
+      std::atomic<int> a; a = 0;
+
+      std::thread t1([&] { work_with_sentinel(a); });
+      std::thread t2([&] { work_with_sentinel(a); });
+      std::thread t3([&] { work_with_sentinel(a); });
+      std::thread t4([&] { work_with_sentinel(a); });
 
       t1.join(); t2.join(); t3.join(); t4.join();
       return a;
@@ -148,6 +170,14 @@ namespace false_sharing
         val++;
     }
 
+    void work_with_sentinel(unsigned int& val)
+    {
+      unsigned int sentinel = 0;
+      for (int i = 0; i < 10000; ++i)
+        ++sentinel;
+      val = sentinel;
+    }
+
     int test()
     {
       aligned_type a; a.val = 0; // &a: 0x...70f500
@@ -163,118 +193,87 @@ namespace false_sharing
       t1.join(); t2.join(); t3.join(); t4.join();
       return a.val + b.val + c.val + d.val;
     }
+
+    int test_sentinel()
+    {
+      aligned_type a; a.val = 0; // &a: 0x...70f500
+      aligned_type b; b.val = 0; // &b: 0x...70f4c0
+      aligned_type c; c.val = 0; // &c: 0x...70f480
+      aligned_type d; d.val = 0; // &d: 0x...70f440
+
+      std::thread t1([&] { work_with_sentinel(a.val); });
+      std::thread t2([&] { work_with_sentinel(b.val); });
+      std::thread t3([&] { work_with_sentinel(c.val); });
+      std::thread t4([&] { work_with_sentinel(d.val); });
+
+      t1.join(); t2.join(); t3.join(); t4.join();
+      return a.val + b.val + c.val + d.val;
+    }
   }
 
 } // namespace false_sharing
 
 CREATE_ELEMENT_WITH_CODE(FalseSharingSingleAtomic) {
-  using clock = std::chrono::high_resolution_clock;
-  using duration = std::chrono::duration<double, std::micro>;
-  {
-    std::cout << "thread count : 1\n";
-    clock::time_point start = clock::now();
+  using namespace false_sharing::sharing_single_atomic;
+  auto print_result = [](const auto& result) {
+    std::cout << "duration: " << result.first << " msec\n";
+    std::cout << "result: " << std::to_string(result.second) << "\n";
+  };
 
-    auto result = false_sharing::sharing_single_atomic::test_1();
+  std::cout << "thread count : 1\n";
+  auto result_1 = benchmarker::run(test_1);
+  print_result(result_1);
 
-    duration elapsed = clock::now() - start;
-    std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
-    std::cout << "result: " << std::to_string(result) << "\n";
-  }
-  {
-    std::cout << "thread count : 2\n";
-    clock::time_point start = clock::now();
+  std::cout << "thread count : 2\n";
+  auto result_2 = benchmarker::run(test_2);
+  print_result(result_2);
 
-    auto result = false_sharing::sharing_single_atomic::test_2();
+  std::cout << "thread count : 3\n";
+  auto result_3 = benchmarker::run(test_3);
+  print_result(result_3);
 
-    duration elapsed = clock::now() - start;
-    std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
-    std::cout << "result: " << std::to_string(result) << "\n";
-  }
-  {
-    std::cout << "thread count : 3\n";
-    clock::time_point start = clock::now();
+  std::cout << "thread count : 4\n";
+  auto result_4 = benchmarker::run(test_4);
+  print_result(result_4);
 
-    auto result = false_sharing::sharing_single_atomic::test_3();
-
-    duration elapsed = clock::now() - start;
-    std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
-    std::cout << "result: " << std::to_string(result) << "\n";
-  }
-  {
-    std::cout << "thread count : 4\n";
-    clock::time_point start = clock::now();
-
-    auto result = false_sharing::sharing_single_atomic::test_4();
-
-    duration elapsed = clock::now() - start;
-    std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
-    std::cout << "result: " << std::to_string(result) << "\n";
-  }
-
+  std::cout << "[with sentinel] thread count : 4\n";
+  auto result_5 = benchmarker::run(test_4_sentinel);
+  print_result(result_5);
 }
 
 CREATE_ELEMENT_WITH_CODE(FalseSharingAtomicsInSingleCacheLine) {
-  using clock = std::chrono::high_resolution_clock;
-  using duration = std::chrono::duration<double, std::micro>;
-  {
-    std::cout << "thread count : 2\n";
-    clock::time_point start = clock::now();
+  using namespace false_sharing::sharing_atomics_in_one_chache_line;
+  auto print_result = [](const auto& result) {
+    std::cout << "duration: " << result.first << " msec\n";
+    std::cout << "result: " << std::to_string(result.second) << "\n";
+  };
+  std::cout << "thread count : 2\n";
+  print_result(benchmarker::run(test_2));
 
-    auto result = false_sharing::sharing_atomics_in_one_chache_line::test_2();
+  std::cout << "thread count : 3\n";
+  print_result(benchmarker::run(test_3));
 
-    duration elapsed = clock::now() - start;
-    std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
-    std::cout << "result: " << std::to_string(result) << "\n";
-  }
-  {
-    std::cout << "thread count : 3\n";
-    clock::time_point start = clock::now();
-
-    auto result = false_sharing::sharing_atomics_in_one_chache_line::test_3();
-
-    duration elapsed = clock::now() - start;
-    std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
-    std::cout << "result: " << std::to_string(result) << "\n";
-  }
-  {
-    std::cout << "thread count : 4\n";
-    clock::time_point start = clock::now();
-
-    auto result = false_sharing::sharing_atomics_in_one_chache_line::test_4();
-
-    duration elapsed = clock::now() - start;
-    std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
-    std::cout << "result: " << std::to_string(result) << "\n";
-  }
+  std::cout << "thread count : 4\n";
+  print_result(benchmarker::run(test_4));
 }
 /*
   Windows içerisinde atomic deðiþkenlerin memory order yönetimleri exclusively locked (mutex ile ayný!) olduðu için
-  aþaðýda 'FalseSharingResolved' içerisinde kullanýlan kodda atomik deðiþkenler farklý cache line'larda 
+  aþaðýda 'FalseSharingResolved' içerisinde kullanýlan kodda atomik deðiþkenler farklý cache line'larda
   yerleþmelerine raðmen mutex kullanýmý yüzünden toplam iþlem süresi diðerlerinden farklý olmayacaktýr!
   Linux veya unix (mac) iþletim sistemlerinde atomik yapýlarýn memory order yönetimi esnek çalýþtýðýndan sonuç,
   sunumdaki grafik gibi olacaktýr.
 */
 CREATE_ELEMENT_WITH_CODE(FalseSharingResolved) {
-  using clock = std::chrono::high_resolution_clock;
-  using duration = std::chrono::duration<double, std::micro>;
-  {
-    std::cout << "thread count : 4\n";
-    clock::time_point start = clock::now();
+  auto print_result = [](const auto& result) {
+    std::cout << "duration: " << result.first << " msec\n";
+    std::cout << "result: " << std::to_string(result.second) << "\n";
+  };
+  std::cout << "thread count : 4\n";
+  print_result(benchmarker::run(false_sharing::false_sharing_resolved::test));
 
-    auto result = false_sharing::false_sharing_resolved::test();
+  std::cout << "thread local variable: \n";
+  print_result(benchmarker::run(false_sharing::false_sharing_resolved_noatomic::test));
 
-    duration elapsed = clock::now() - start;
-    std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
-    std::cout << "result: " << std::to_string(result) << "\n";
-  }
-  {
-    std::cout << "thread local variable: \n";
-    clock::time_point start = clock::now();
-
-    auto result = false_sharing::false_sharing_resolved_noatomic::test();
-
-    duration elapsed = clock::now() - start;
-    std::cout << "duration: " << elapsed.count() / 1000.0 << " msec\n"; // return in millisecond resolution
-    std::cout << "result: " << std::to_string(result) << "\n";
-  }
+  std::cout << "thread local variable with sentinel: \n";
+  print_result(benchmarker::run(false_sharing::false_sharing_resolved_noatomic::test_sentinel));
 }

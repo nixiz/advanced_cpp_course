@@ -72,12 +72,12 @@ CREATE_ELEMENT_WITH_CODE(SmartPointerUsage) {
   {
     problem::bad();
   }
-  catch (...){ } 
+  catch (...) {}
 
   try
   {
     halfsolution::willwork();
-    
+
     halfsolution::willNOTwork();
   }
   catch (...) {}

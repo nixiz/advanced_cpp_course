@@ -21,7 +21,7 @@ CREATE_ELEMENT_WITH_CODE(OldStyleSmartPointer) {
   SharedNumberHandle sharedNumberPtr = new SharedNumber(10);
 
   // create vector with 3 elements of shared number pointer
-  std::vector<SharedNumberHandle> sharedNumberVector { sharedNumberPtr, sharedNumberPtr, sharedNumberPtr };
+  std::vector<SharedNumberHandle> sharedNumberVector{ sharedNumberPtr, sharedNumberPtr, sharedNumberPtr };
 
   for (const auto& number : sharedNumberVector) {
     // be sure that every item of vector use the same instance of number

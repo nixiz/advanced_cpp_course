@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{51F8D066-9385-4CD3-8C38-BEFD06AEE0D4}</ProjectGuid>
     <RootNamespace>STMAdvancedCPP</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -86,6 +86,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\inc;$(SolutionDir)\src\1-Inheritance;$(SolutionDir)\src\2-SmartPointer;$(SolutionDir)\src\3-Static;$(SolutionDir)\src\4-CPUArchitecture;$(SolutionDir)\src\5-Templates;$(SolutionDir)\src\6-Exceptions;$(SolutionDir)\src\7-CustomComparators;$(SolutionDir)\src\8-Cpp11Features;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -112,6 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\inc;$(SolutionDir)\src\1-Inheritance;$(SolutionDir)\src\2-SmartPointer;$(SolutionDir)\src\3-Static;$(SolutionDir)\src\4-CPUArchitecture;$(SolutionDir)\src\5-Templates;$(SolutionDir)\src\6-Exceptions;$(SolutionDir)\src\7-CustomComparators;$(SolutionDir)\src\8-Cpp11Features;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -123,6 +125,7 @@
     <ClCompile Include="src\2-SmartPointer\bonus\shared.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inc\benchmarker.hpp" />
     <ClInclude Include="inc\no_destruct.h" />
     <ClInclude Include="inc\number.hpp" />
     <ClInclude Include="inc\playground_organizer.hpp" />

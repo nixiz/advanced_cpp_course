@@ -82,7 +82,7 @@ namespace chromium {
       T* storage_ptr_ = reinterpret_cast<T*>(storage_);
 #endif  // defined(LEAK_SANITIZER)
     };
-    }  // namespace base
+  }  // namespace base
 }  // namespace chromium
 #endif  // BASE_NO_DESTRUCTOR_H_
 

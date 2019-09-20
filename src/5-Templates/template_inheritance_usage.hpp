@@ -64,11 +64,11 @@ namespace TemplateInheritanceUsage {
       /*
         gereksinim:
         Singleton olarak kullanacağımız her sınıf defaut ctor'a sahip olmak zorunda değil.
-        Bazı sınıfların ctor'ları parametre almak zorunda olabilir. bu nedenle singleton 
+        Bazı sınıfların ctor'ları parametre almak zorunda olabilir. bu nedenle singleton
         bu sınıfları singleton olarak yaratacaksak, başka bir çözüm bulmamız lazım.
 
         class ClassA : public Singleton<ClassA> {
-        public: 
+        public:
           ClassA(int a, float b) ...
         };
 
@@ -77,7 +77,7 @@ namespace TemplateInheritanceUsage {
           ClassB(string name) ...
         };
 
-        Yukarıdaki gibi iki sınıfımızı singleton pattern için yarattığımız Singleton<T> 
+        Yukarıdaki gibi iki sınıfımızı singleton pattern için yarattığımız Singleton<T>
         sınıfı üzerinden kullanmak isteyelim
 
         template <class T>
@@ -114,7 +114,7 @@ namespace TemplateInheritanceUsage {
         {
           static T inst(a1, a2, a3 /*, ..., aN*/); return inst;
         }
-        
+
         // ... 
       protected:
         Singleton() = default;
@@ -164,71 +164,71 @@ namespace TemplateInheritanceUsage {
     public:
       typedef typename std::remove_all_extents<T>::type Type;
 
-	    template <typename ...Args>
+      template <typename ...Args>
       Singleton(Args&& ...args)
       {
-		    struct StaticObjCreator
-		    {
-			    StaticObjCreator(Type*& obj_ptr, Args&& ...arguments)
-			    {
-				    assert(obj_ptr == nullptr);
-				    obj_ptr = new Type(std::forward<Args>(arguments)...);
-			    }
-		    };
-		    static StaticObjCreator _creator(pointee, std::forward<Args>(args)... );
-		    assert(pointee != nullptr);
-	    }
+        struct StaticObjCreator
+        {
+          StaticObjCreator(Type*& obj_ptr, Args&& ...arguments)
+          {
+            assert(obj_ptr == nullptr);
+            obj_ptr = new Type(std::forward<Args>(arguments)...);
+          }
+        };
+        static StaticObjCreator _creator(pointee, std::forward<Args>(args)...);
+        assert(pointee != nullptr);
+      }
 
-	    template <typename ...Args>
-	    static void createInstance(Args&& ...args)
-	    {
-		    /*should be static ?*/
-		    Singleton _instance(std::forward<Args>(args)...);
-		    (void)_instance;
-	    }
+      template <typename ...Args>
+      static void createInstance(Args&& ...args)
+      {
+        /*should be static ?*/
+        Singleton _instance(std::forward<Args>(args)...);
+        (void)_instance;
+      }
 
-	    static Type *getInstance()
-	    {
-		    //if (pointee == nullptr) throw std::exception("");
-		    return pointee;
-	    }
+      static Type *getInstance()
+      {
+        //if (pointee == nullptr) throw std::exception("");
+        return pointee;
+      }
 
-	    Type * operator->()
-	    {
-		    return &**this;
-	    }
+      Type * operator->()
+      {
+        return &**this;
+      }
 
-	    const Type* operator->() const
-	    {
-		    return &**this;
-	    }
+      const Type* operator->() const
+      {
+        return &**this;
+      }
 
-	    Type& operator *()
-	    {
-		    return *pointee;
-	    }
+      Type& operator *()
+      {
+        return *pointee;
+      }
 
-	    const Type& operator *() const
-	    {
-		    return *pointee;
-	    }
+      const Type& operator *() const
+      {
+        return *pointee;
+      }
 
-	private:
+    private:
       static Type *pointee;
     };
-	  template <typename T>
-	  typename Singleton<T>::Type * Singleton<T>::pointee = nullptr;
+    template <typename T>
+    typename Singleton<T>::Type * Singleton<T>::pointee = nullptr;
 
     class ClassA {
     public:
-		ClassA() { std::cout << "ClassA::ClassA()" << std::endl; }
-		void foo() {}
-		void bar() {}
+      ClassA() { std::cout << "ClassA::ClassA()" << std::endl; }
+      void foo() {}
+      void bar() {}
     };
 
     class ClassB {
     public:
-		ClassB(int, double, std::string) {}
+      ClassB(int, double, std::string) {}
       void foo() {}
       void bar() {}
     };
@@ -236,10 +236,10 @@ namespace TemplateInheritanceUsage {
     void usage()
     {
       Singleton<ClassA> a; // -> can be instantiated like a normal class
-	    Singleton<ClassA> aa; // -> aa will be referenced to a
-	    Singleton<ClassB> b(1, 3.14, "hello world!"); // -> 
-	    Singleton<ClassA>::getInstance()->foo(); //-> ClassA
-	    (*a).foo(); b->bar();   // -> and * operators both work
+      Singleton<ClassA> aa; // -> aa will be referenced to a
+      Singleton<ClassB> b(1, 3.14, "hello world!"); // -> 
+      Singleton<ClassA>::getInstance()->foo(); //-> ClassA
+      (*a).foo(); b->bar();   // -> and * operators both work
     }
   }
 
@@ -261,7 +261,7 @@ CREATE_ELEMENT_WITH_CODE(TemplateInheritanceUsageExample) {
   }
 
   TemplateInheritanceUsage::CorrectSingletonDesign::usage();
-  
+
 }
 
 #include "inc/no_destruct.h"

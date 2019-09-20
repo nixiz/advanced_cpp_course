@@ -20,7 +20,7 @@ public:
   }
   template <class T,
     typename = typename std::enable_if_t<std::is_floating_point<T>::value>>
-  bool operator()(const T& lhs, const T& rhs) const {
+    bool operator()(const T& lhs, const T& rhs) const {
     if (bUseCompEpsl)
       return (std::fabs(lhs - rhs) > static_cast<T>(dEpsl)) &&
       (lhs < rhs);
@@ -43,7 +43,7 @@ namespace ccn {
     std::string _firstname;
     std::string _lastname;
   public:
-    Student(std::string firstname, std::string lastname,  int aver) : 
+    Student(std::string firstname, std::string lastname, int aver) :
       _firstname(firstname), _lastname(lastname), average(aver) { }
     int getAverage() const { return average; }
     std::string getName() const {
@@ -54,13 +54,13 @@ namespace ccn {
     }
   };
 
-  // Sadece Student tipteki iterator tipleri iÃ§in geÃ§erli olacaktÃ½r.
-  // Bu sayede, fonksiyon iÃ§erisinde begin -> end arasÃ½ndaki iterasyonlarda 
-  // Student sÃ½nÃ½fÃ½nÃ½n Ã¶zelliklerine eriÃ¾ebileceÃ°imiz garanti altÃ½na almÃ½Ã¾ oluyoruz.
-  template <typename Iter, 
+  // Sadece Student tipteki iterator tipleri için geçerli olacaktýr.
+  // Bu sayede, fonksiyon içerisinde begin -> end arasýndaki iterasyonlarda 
+  // Student sýnýfýnýn özelliklerine eriþebileceðimiz garanti altýna almýþ oluyoruz.
+  template <typename Iter,
     typename = typename std::enable_if<
     std::is_same<typename std::iterator_traits<Iter>::value_type, Student*>::value>::type >
-  void printStudents(Iter begin, Iter end) {
+    void printStudents(Iter begin, Iter end) {
     for (Iter it = begin; it != end; it++)
     {
       std::cout << "Student: " << (*it)->getName() << std::endl;
@@ -79,13 +79,13 @@ namespace ccn {
   namespace solution {
 
     struct AddStudentAverageAscending {
-      bool operator()(Student* lhs, Student* rhs) const {
+      bool operator()(const Student* lhs, const Student* rhs) const {
         return lhs->getAverage() < rhs->getAverage();
       }
     };
 
     struct AddStudentAverageDescending {
-      bool operator()(Student* lhs, Student* rhs) const {
+      bool operator()(const Student* lhs, const Student* rhs) const {
         return lhs->getAverage() > rhs->getAverage();
       }
     };
@@ -113,21 +113,21 @@ CREATE_ELEMENT_WITH_CODE(CustomComparatorNeedExample) {
 
 CREATE_ELEMENT_WITH_CODE(CustomComparatorExample) {
 
-{
-  std::map<float, int, STMValueComparator> mm; // use numeric limit epsilon
-  mm[1.0] = 1;
-  mm[2.0] = 2;
-  mm[3.0] = 3;
-  auto f = mm.find(1.0);
-}
+  {
+    std::map<float, int, STMValueComparator> mm; // use numeric limit epsilon
+    mm[1.0] = 1;
+    mm[2.0] = 2;
+    mm[3.0] = 3;
+    auto f = mm.find(1.0);
+  }
 
-{
-  std::map<float, int, STMValueComparator> mm(STMValueComparator(1.1));
-  mm[1.0] = 1;
-  mm[2.0] = 2;
-  mm[3.0] = 3;
-  auto f = mm.find(1.0);
-}
+  {
+    std::map<float, int, STMValueComparator> mm(STMValueComparator(1.1));
+    mm[1.0] = 1;
+    mm[2.0] = 2;
+    mm[3.0] = 3;
+    auto f = mm.find(1.0);
+  }
 
   {
     std::map<int, int, STMValueComparator> mm(STMValueComparator(0));

@@ -62,7 +62,7 @@ namespace exceptions {
     public:
       // delegating constructors available in C++11
       CustomException(int line, const char* const file) : CustomException(line, file, nullptr) { }
-      
+
       CustomException(int line, const char* const file, const char* const message)
       {
         std::ostringstream exceptionStream;
@@ -157,9 +157,9 @@ namespace exceptions {
       struct unwinder_impl : public unwinder
       {
         int* val;
-        unwinder_impl(int* _val) : val(_val) { 
-          ++(*val); 
-          printf("%s\n", __FUNCTION__); 
+        unwinder_impl(int* _val) : val(_val) {
+          ++(*val);
+          printf("%s\n", __FUNCTION__);
         }
         ~unwinder_impl() { printf("%s\n", __FUNCTION__); }
 

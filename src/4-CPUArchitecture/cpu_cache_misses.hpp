@@ -11,7 +11,7 @@
 #include <iomanip>
 
 namespace cpu_cache_misses {
-  
+
   enum class TraversalOrder : unsigned {
     RowMajor,
     ColumnMajor
@@ -23,7 +23,7 @@ namespace cpu_cache_misses {
     unsigned int map[size] = { 0 };
     random_map()
     {
-      srand(time(NULL));
+      srand(static_cast<unsigned int>(time(NULL)));
       std::generate(std::begin(map), std::end(map), [] {
         return rand();
       });
@@ -47,11 +47,11 @@ namespace cpu_cache_misses {
     {
       const unsigned long long matrix_dim = static_cast<unsigned long long>(sqrt(matrix_size));
       const auto dim_size = matrix_dim % 2 == 0 ? matrix_dim : matrix_dim + 1;
-      rowsize    = (dim_size / 2);
+      rowsize = (dim_size / 2);
       columnsize = (dim_size - rowsize);
       // check if matrix is equal sized
       assert(rowsize == columnsize);
-      
+
       //std::default_random_engine generator;
       //std::uniform_int_distribution<int> distribution(1, (std::numeric_limits<Type>::max)());
 
@@ -85,7 +85,7 @@ namespace cpu_cache_misses {
     unsigned long long columns() const {
       return columnsize;
     }
-    
+
     Type* operator[](unsigned long long index) {
       return data_[index];
     }
@@ -98,7 +98,7 @@ namespace cpu_cache_misses {
     unsigned long long rowsize;
     unsigned long long columnsize;
   };
-  
+
   template <typename T>
   unsigned long long sumMatrix(const Matrix<T>& m, TraversalOrder order)
   {
@@ -125,13 +125,13 @@ namespace cpu_cache_misses {
     using clock = std::chrono::high_resolution_clock;
     using duration = std::chrono::duration<double, std::micro>;
 
-    explicit MatrixSumBenchmarkHelper(unsigned long long matrix_size) : 
+    explicit MatrixSumBenchmarkHelper(unsigned long long matrix_size) :
       mat(matrix_size) { }
 
     std::pair<double, unsigned long long> start(TraversalOrder order) {
       unsigned long long sum = 0;
       clock::time_point start = clock::now();
-      
+
       sum = sumMatrix(mat, order);
 
       duration elapsed = clock::now() - start;
@@ -158,14 +158,14 @@ namespace cpu_cache_misses {
     std::string testname;
     std::vector<std::pair<unsigned long long, double>> samplings; // matrix size (mb) - traversal sum time in milliseconds
   };
-  
+
   std::ostream& operator<<(std::ostream& os, const benchmarkresult& result) {
     os
       << "results of: " << result.testname << "\n"
       << "matrix size (MB)\telapsed time (ms)" << std::setw(5) << "\n";
     for (size_t i = 0; i < result.samplings.size(); i++)
     {
-      os << "\t" << result.samplings[i].first / (1024*1024) << "\t\t" << result.samplings[i].second << "\n";
+      os << "\t" << result.samplings[i].first / (1024 * 1024) << "\t\t" << result.samplings[i].second << "\n";
     }
     return os;
   }

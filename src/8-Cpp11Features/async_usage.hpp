@@ -14,7 +14,7 @@ namespace asyncusage {
 
   template<typename T, int N>
   struct CompileTimeArray {
-    constexpr CompileTimeArray() : arr(), len(N - 1), endIndex(N-1) {
+    constexpr CompileTimeArray() : arr(), len(N - 1), endIndex(N - 1) {
       while (len > 0)
       {
         arr[len] = len;
@@ -51,7 +51,7 @@ namespace asyncusage {
 
     RandomIt mid = beg + len / 2;
     auto handle = std::async(std::launch::async,
-                             parallel_sum<RandomIt>, mid, end);
+      parallel_sum<RandomIt>, mid, end);
     int sum = parallel_sum(beg, mid);
     return sum + handle.get();
   }
@@ -81,7 +81,7 @@ namespace asyncfutureusage {
     return 5;
   }
 
-  void BigSlowFunctionPromise( std::promise<int>& _promise ) {
+  void BigSlowFunctionPromise(std::promise<int>& _promise) {
     _promise.set_value_at_thread_exit(5);
     std::this_thread::sleep_for(1s);
   }
@@ -99,13 +99,13 @@ namespace asyncfutureusage {
   std::future<int> FutureUsageReturnFutureMove() {
     std::future<int> result = std::async(BigSlowFunction);
     return std::move(result);
-  } // 
+  } //
   */
 
   int FutureUsagePromise() {
     std::promise<int> prom;
     std::future<int> result = prom.get_future();
-    
+
     // call in another thread
     std::thread t{ BigSlowFunctionPromise, std::ref(prom) };
     t.detach();

@@ -1,10 +1,11 @@
-#pragma once
+﻿#pragma once
 
 #include <playground_organizer.hpp>
 #include <sstream>
 #include <iostream>
 
 namespace FriendUsageRealWorld {
+
 
   class Rectangle {
     int width, height;
@@ -27,10 +28,10 @@ namespace FriendUsageRealWorld {
   public:
     bool Test()
     {
-      Rectangle rect {10,5};
-      if (rect.width != 10 || rect.height != 5) return false;
-      auto res = rect.area();
-      if (res != 50) return false;
+      Rectangle rec{ 10,5 };
+      if (rec.width != 10 || rec.height != 5) return false;
+      auto result = rec.area();
+      if (result != 50) return false;
       return true;
     }
   };
@@ -41,6 +42,6 @@ CREATE_ELEMENT_WITH_CODE(FriendUsageExample) {
   namespace fu = FriendUsageRealWorld;
   fu::Rectangle rec(3, 5);
   std::cout << rec << std::endl;
-  fu::RectangleTest test;
-  test.Test();
+  fu::RectangleTest recTest;
+  recTest.Test();
 }

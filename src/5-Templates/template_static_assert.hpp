@@ -145,7 +145,7 @@ class ERROR_##msg {}; \
 CREATE_ELEMENT_WITH_CODE(TemplateStaticAssert) {
   namespace sa = staticassert;
 
-  sa::definition::willsuccess();  
+  sa::definition::willsuccess();
   sa::definition::willfail();
 
   sa::usingtemplates::willfail();

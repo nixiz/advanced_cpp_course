@@ -30,14 +30,14 @@ namespace template_container {
   {
     std::cout << v.name() << std::endl;
   }
-  
+
   class GeoObjContainer
   {
   public:
     template<typename T>
     GeoObjContainer(const T& obj)
       : inner_(std::make_unique<Holder<T> >(obj)) { }
-    
+
     const std::string name() const {
       return inner_->name();
     }

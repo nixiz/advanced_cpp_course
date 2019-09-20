@@ -31,7 +31,7 @@ namespace policy {
   template <typename Base, template <typename> class CheckerPolicy = policy::ThrowIfZero>
   struct Undoable : public Base {
     typedef typename Base::value_type value_type;
-    
+
     void set(value_type v) {
       before = Base::get();
       Base::set(v);

@@ -7,7 +7,7 @@ namespace mallocusage {
   void DoublePointerUsage() {
     // create 3x3 matrix using malloc
     int** mat = (int **)malloc(3 * sizeof(int*));
-    for (int i = 0; i<3; ++i) {
+    for (int i = 0; i < 3; ++i) {
       mat[i] = (int *)malloc(3 * sizeof(int));
     }
     // empty matrix
@@ -20,7 +20,7 @@ namespace mallocusage {
     }
 
     // free the matrix pointer with reverse order of allocation
-    for (int i = 0; i<3; ++i) {
+    for (int i = 0; i < 3; ++i) {
       free(mat[i]);
     }
     free(mat);
@@ -30,7 +30,7 @@ namespace mallocusage {
     // create 3x3 matrix using malloc
     int** mat = (int **)calloc(3, sizeof(int*));
     // calloc enables to reallocate int ** size as needed
-    for (int i = 0; i<3; ++i) {
+    for (int i = 0; i < 3; ++i) {
       mat[i] = (int *)calloc(3, sizeof(int));
     }
     // created by calloc so all values should be 0 by default
@@ -43,7 +43,7 @@ namespace mallocusage {
     }
 
     // free the matrix pointer with reverse order of allocation
-    for (int i = 0; i<3; ++i) {
+    for (int i = 0; i < 3; ++i) {
       free(mat[i]);
     }
     free(mat);

@@ -7,7 +7,7 @@ namespace ICT
   public:
     // delegating constructors available in C++11
     ICT_Exception(int line, const char* const file) : ICT_Exception(line, file, nullptr) { }
-    
+
     ICT_Exception(int line, const char* const file, const char* const message)
     {
       std::ostringstream exceptionStream;

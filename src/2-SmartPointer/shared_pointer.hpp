@@ -15,7 +15,7 @@ namespace sharedpointer {
     std::cout << "\nprocess[thread: " << std::this_thread::get_id() << "] started\n";
     std::cout << "use count for shared_ptr<Number>: " << sharedNumber.use_count() << std::endl;
 
-    std::thread second_thread( [](std::shared_ptr<Number> num) {
+    std::thread second_thread([](std::shared_ptr<Number> num) {
       std::cout << "process[thread: " << std::this_thread::get_id() << "] started\n";
       std::cout << "use count for shared_ptr<Number>: " << num.use_count() << std::endl;
       unsigned count = 0;
@@ -24,7 +24,7 @@ namespace sharedpointer {
         if (rand() % 10 == 0) ++count;
       }
       std::cout << "process[thread: " << std::this_thread::get_id() << "] done and will be destroyed\n";
-    }, sharedNumber );
+    }, sharedNumber);
 
     unsigned count = 0;
     while (count < 3) {
@@ -64,18 +64,18 @@ namespace sharedpointer {
     auto func = [](SharedNumber *num) {
       return std::thread(
         [](auto num_ptr) { // thread function
-          while(num_ptr->decrement() > 0) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(200));
-            std::cout << num_ptr->toString() << "\n";
-          }
-        },
+        while (num_ptr->decrement() > 0) {
+          std::this_thread::sleep_for(std::chrono::milliseconds(200));
+          std::cout << num_ptr->toString() << "\n";
+        }
+      },
         num->shared_from_this() // function arguments
-      );
+        );
     };
     // send SharedNumber as raw pointer and exit from the scope
     return std::move(func(shared_number_ptr.get()));
   }
-  
+
   void usage_weak_ptr()
   {
     auto shared_number_ptr = std::make_shared<SharedNumber>(10);
@@ -115,7 +115,7 @@ namespace sharedpointer {
       std::lock_guard<std::mutex> lock(guard);
       pool.push_back(object);
     }
-       
+
     ~SharedPointerReleasePool()
     {
       is_active = false;
@@ -128,7 +128,7 @@ namespace sharedpointer {
       std::lock_guard<std::mutex> lock(guard);
       pool.erase(
         std::remove_if(std::begin(pool), std::end(pool), [](const auto& ptr) {
-          return ptr.use_count() <= 1;
+        return ptr.use_count() <= 1;
       }), pool.end());
     }
     std::atomic<bool> is_active;
