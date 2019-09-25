@@ -30,7 +30,7 @@ namespace mixin {
         int _number_old;
       public:
         virtual ~IUndoableNumber() {}
-        virtual int get() const = 0;
+        // virtual int get() const = 0;
 
         void set(int v) override {
           _number_old = get();
@@ -50,7 +50,7 @@ namespace mixin {
         int _number_after;
       public:
         virtual ~IRedoableNumber() {}
-        virtual int get() const = 0;
+        // virtual int get() const = 0;
 
         void set(int v) override {
           _number_after = get();

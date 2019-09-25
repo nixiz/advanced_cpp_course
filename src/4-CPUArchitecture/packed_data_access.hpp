@@ -82,7 +82,7 @@ auto sum_lambda = [](int sum, const auto& s) {
 CREATE_ELEMENT_WITH_CODE(AlignedStructAccess) {
   using namespace packed_data_access;
 #ifndef WIN32
-  constexpr auto list = StructCreator<AlignedStruct, 1024 * 10>();
+  constexpr auto aligned_list = StructCreator<AlignedStruct, 1024 * 10>();
 #endif
   unsigned int sum = std::accumulate(&aligned_list.arr[0], &aligned_list.arr[aligned_list.size], 0, sum_lambda);
   std::cout << "sum: " << sum << "\n";

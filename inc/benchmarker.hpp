@@ -69,6 +69,7 @@ struct benchmarker
 
 };
 
+#ifdef _WIN32
 // to_string overload for void types 
 _STD_BEGIN
 _NODISCARD inline string to_string(return_type_holder<void>::empty_struct)
@@ -76,3 +77,11 @@ _NODISCARD inline string to_string(return_type_holder<void>::empty_struct)
   return string{};
 }
 _STD_END
+#else
+namespace std {
+  [[nodiscard]] inline string to_string(return_type_holder<void>::empty_struct)
+  {	// convert void to string
+    return string{};
+  }
+}
+#endif

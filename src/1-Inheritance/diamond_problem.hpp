@@ -46,7 +46,7 @@ namespace diamondproblem {
 
   //
   void STMFrameworkObjectManager::printObjects() const {
-    printf("\ntotal alive objects: %I64d", _totalObjects);
+    printf("\ntotal alive objects: %llu", _totalObjects);
     for (Object* obj : registeredObjects)
     {
       printf("\n%s", obj->getName().c_str());
@@ -63,12 +63,21 @@ namespace diamondproblem {
     class ComponentB : public Object {
     public: ComponentB() : Object("STM ComponentB") { }
     };
+#ifdef _WIN32
 #pragma warning( push )
 #pragma warning( disable : 4584) // disable compiler warning for multiple base class inheritance
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Winaccessible-base"
+#endif
     class CompositeComponent : public Object, public ComponentA {
     public: CompositeComponent() : Object("STM CompositeComponent") { }
     };
+#ifdef _WIN32
 #pragma warning( pop ) 
+#else
+#pragma GCC diagnostic pop
+#endif
 
   }  // namespace problem
 
