@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <benchmarker.hpp>
 #include <iostream>
 #include <random>
@@ -8,7 +7,7 @@
 #include <chrono>
 #include <iterator>
 
-CREATE_ELEMENT_WITH_CODE(CountIfRandom) {
+ELEMENT_CODE(CountIfRandom) {
   std::vector<int> v(65536);
   std::generate(std::begin(v), std::end(v), [] {
     return (rand() % 2) ? 1 : -1;
@@ -25,7 +24,7 @@ CREATE_ELEMENT_WITH_CODE(CountIfRandom) {
   std::cout << "result: " << result.second << "\n";
 }
 
-CREATE_ELEMENT_WITH_CODE(CountIfSequenced) {
+ELEMENT_CODE(CountIfSequenced) {
   std::vector<int> v(65536);
   std::generate(std::begin(v), std::end(v), [n = 0]() mutable {
     return (++n % 2) ? 1 : -1;
@@ -42,7 +41,7 @@ CREATE_ELEMENT_WITH_CODE(CountIfSequenced) {
   std::cout << "result: " << result.second << "\n";
 }
 
-CREATE_ELEMENT_WITH_CODE(CountIfSorted) {
+ELEMENT_CODE(CountIfSorted) {
   std::vector<int> v(65536);
   std::generate(std::begin(v), std::end(v), [] {
     return (rand() % 2) ? 1 : -1;
@@ -81,7 +80,7 @@ namespace branch_prediction
 
 } // namespace branch_prediction
 
-CREATE_ELEMENT_WITH_CODE(VirtualCallsSequenced) {
+ELEMENT_CODE(VirtualCallsSequenced) {
   using namespace branch_prediction;
   std::vector<price*> pricelist;
   std::fill_n(std::back_inserter(pricelist), 10000, new price);
@@ -101,7 +100,7 @@ CREATE_ELEMENT_WITH_CODE(VirtualCallsSequenced) {
   std::cout << "sum: " << result.second << "\n";
 }
 
-CREATE_ELEMENT_WITH_CODE(VirtualCallsShuffled) {
+ELEMENT_CODE(VirtualCallsShuffled) {
   using namespace branch_prediction;
   std::random_device rd;
   std::mt19937 g{ rd() };

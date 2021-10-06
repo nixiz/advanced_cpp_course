@@ -1,6 +1,5 @@
-#pragma once
+#include <advanced_cpp_topics.h>
 #include <string.h>
-#include <playground_organizer.hpp>
 #include <iostream>
 #include <vector>
 #include "inc/number.hpp"
@@ -79,7 +78,7 @@ namespace virtualdestructor {
   }
 } // namespace virtualdestructor
 
-CREATE_ELEMENT_WITH_CODE(VirtualDestructorUsage) {
+ELEMENT_CODE(VirtualDestructorUsage) {
   {
     virtualdestructor::Problem();
   }

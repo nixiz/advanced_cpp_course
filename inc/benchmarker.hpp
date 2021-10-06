@@ -7,6 +7,8 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <cmath>
+#include <iostream>
 
 template <class T>
 struct return_type_holder

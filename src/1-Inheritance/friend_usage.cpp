@@ -1,6 +1,5 @@
-﻿#pragma once
+﻿#include "advanced_cpp_topics.h"
 
-#include <playground_organizer.hpp>
 #include <sstream>
 #include <iostream>
 
@@ -38,7 +37,7 @@ namespace FriendUsageRealWorld {
 
 } // namespace FriendUsageRealWorld
 
-CREATE_ELEMENT_WITH_CODE(FriendUsageExample) {
+ELEMENT_CODE(FriendUsageExample) {
   namespace fu = FriendUsageRealWorld;
   fu::Rectangle rec(3, 5);
   std::cout << rec << std::endl;

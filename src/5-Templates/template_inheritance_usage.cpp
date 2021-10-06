@@ -1,5 +1,4 @@
-﻿#pragma once
-#include <playground_organizer.hpp>
+﻿#include <advanced_cpp_topics.h>
 #include <iostream>
 #include <string>
 
@@ -245,7 +244,7 @@ namespace TemplateInheritanceUsage {
 
 } // namespace TemplateInheritanceUsage
 
-CREATE_ELEMENT_WITH_CODE(TemplateInheritanceUsageExample) {
+ELEMENT_CODE(TemplateInheritanceUsageExample) {
   {
     namespace ft = TemplateInheritanceUsage::TemplateSolution;
     std::cout << "Address of MySingletonClassA: " << &ft::MySingletonClassA::getInstance() << std::endl;
@@ -297,7 +296,7 @@ namespace googleway {
   }
 }
 
-CREATE_ELEMENT_WITH_CODE(GoogleNoDestructor) {
+ELEMENT_CODE(GoogleNoDestructor) {
   using namespace googleway;
   chromium::base::NoDestructor<std::string> s("this will not destruct!");
   chromium::base::NoDestructor<MySingletonClassA> a;

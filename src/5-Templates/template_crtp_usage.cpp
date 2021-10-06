@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
 
 namespace traits
@@ -54,9 +53,9 @@ namespace traits
       }
     }
 
-    // ana problem, number_of_draws() eklediðimizde bunu crtp ile nasýl yapabiliriz ve 
-    // her derive edilen tip için number_of_draws deðerini nasýl tek kerede hesaplayabiliriz.
-    // mesela Circle c instance'ý daha toplam hesaplanmadan destruct olsaydý nasýl hesaplayacaktýk??
+    // ana problem, number_of_draws() eklediï¿½imizde bunu crtp ile nasï¿½l yapabiliriz ve 
+    // her derive edilen tip iï¿½in number_of_draws deï¿½erini nasï¿½l tek kerede hesaplayabiliriz.
+    // mesela Circle c instance'ï¿½ daha toplam hesaplanmadan destruct olsaydï¿½ nasï¿½l hesaplayacaktï¿½k??
     void usage()
     {
       Line l;
@@ -159,7 +158,7 @@ namespace traits
 
 } // namespace traits
 
-CREATE_ELEMENT_WITH_CODE(TemplateCrtpUsage) {
+ELEMENT_CODE(TemplateCrtpUsage) {
   using namespace traits;
   problem::usage();
   solution::usage();

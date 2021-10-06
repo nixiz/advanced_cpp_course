@@ -1,18 +1,17 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
 #include "inc/number.hpp"
 
 namespace policy {
 
-  /// number sýnýfý örneði için baktýðýmýzda undo veya redo yaparken
-  /// bazý kýsýtlamalar koymak istersek, bunu yapabilmek için bu iþlemleri
-  /// bizim için gerçekleþtiren sýnýflara bu kýsýtlamalarý gerçekleþtirecek
-  /// kodlar yazmamýz gerekecektir. Bunu yaparken bazen ksýtlamak isteyebilir,
-  /// bazen de kýsýtlama koymak istemeyebiliriz. Peki bunu nasýl generic bir
-  /// þekilde yapabiliriz? Bu yetenekleri ilgili undo ve redo yapan sýnýflara
-  /// policy (hareket tarzý) eklememiz en iyi yöntem olacaktýr. 
-  /// Policy detaylý anlatým için aþaðýdaki kitaptan anlatým yap:
+  /// number sï¿½nï¿½fï¿½ ï¿½rneï¿½i iï¿½in baktï¿½ï¿½ï¿½mï¿½zda undo veya redo yaparken
+  /// bazï¿½ kï¿½sï¿½tlamalar koymak istersek, bunu yapabilmek iï¿½in bu iï¿½lemleri
+  /// bizim iï¿½in gerï¿½ekleï¿½tiren sï¿½nï¿½flara bu kï¿½sï¿½tlamalarï¿½ gerï¿½ekleï¿½tirecek
+  /// kodlar yazmamï¿½z gerekecektir. Bunu yaparken bazen ksï¿½tlamak isteyebilir,
+  /// bazen de kï¿½sï¿½tlama koymak istemeyebiliriz. Peki bunu nasï¿½l generic bir
+  /// ï¿½ekilde yapabiliriz? Bu yetenekleri ilgili undo ve redo yapan sï¿½nï¿½flara
+  /// policy (hareket tarzï¿½) eklememiz en iyi yï¿½ntem olacaktï¿½r. 
+  /// Policy detaylï¿½ anlatï¿½m iï¿½in aï¿½aï¿½ï¿½daki kitaptan anlatï¿½m yap:
   /// "Andrei Alexandrescu - Modern C++ design - generic programming and design patterns applied (2001)"
   template <typename T>
   struct AllowAny {
@@ -65,7 +64,7 @@ namespace policy {
 
 }
 
-CREATE_ELEMENT_WITH_CODE(TemplatePolicies) {
+ELEMENT_CODE(TemplatePolicies) {
   using namespace policy;
   typedef Redoable< Undoable<Number> >                      ReUndoableNumberWorks;
   typedef Redoable< Undoable<Number>, policy::ThrowIfZero > ReUndoableNumberThrows;

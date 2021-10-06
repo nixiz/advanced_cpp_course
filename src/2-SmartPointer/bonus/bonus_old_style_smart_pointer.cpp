@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <vector>
 #include "inc/number.hpp"
 #include "handle.h"
@@ -16,7 +15,7 @@ namespace smartpointer {
   typedef ICT::Handle<SharedNumber> SharedNumberHandle;
 } // namespace smartpointer
 
-CREATE_ELEMENT_WITH_CODE(OldStyleSmartPointer) {
+ELEMENT_CODE(OldStyleSmartPointer) {
   using namespace smartpointer;
   SharedNumberHandle sharedNumberPtr = new SharedNumber(10);
 

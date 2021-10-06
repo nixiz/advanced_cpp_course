@@ -1,6 +1,5 @@
-#pragma once
+#include <advanced_cpp_topics.h>
 #include <limits>
-#include <playground_organizer.hpp>
 #include <type_traits>
 #include <chrono>
 #include <random>
@@ -172,7 +171,7 @@ namespace cpu_cache_misses {
 
 } // namespace cpu_cache_misses
 
-CREATE_ELEMENT_WITH_CODE(CpuCacheExample) {
+ELEMENT_CODE(CpuCacheExample) {
   using namespace cpu_cache_misses;
   constexpr size_t num_of_iter = 100;
 

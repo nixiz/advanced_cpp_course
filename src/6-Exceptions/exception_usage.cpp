@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <exception>
 #include <iostream>
 #include <sstream>
@@ -190,7 +189,7 @@ namespace exceptions {
   }
 } // namespace exceptions
 
-CREATE_ELEMENT_WITH_CODE(ExceptionUsage) {
+ELEMENT_CODE(ExceptionUsage) {
   using namespace exceptions;
   ordering::usage();
   custom::usage();

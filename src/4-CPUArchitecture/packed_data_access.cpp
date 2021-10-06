@@ -1,5 +1,5 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
+#include <iostream>
 #include <algorithm>
 #include <numeric>
 
@@ -54,13 +54,13 @@ auto sum_lambda = [](int sum, const auto& s) {
   return sum + (unsigned int)(s.c * s.value);
 };
 
-CREATE_ELEMENT_WITH_CODE(AlignedStructAccess) {
+ELEMENT_CODE(AlignedStructAccess) {
   using namespace packed_data_access;
   unsigned int sum = std::accumulate(&aligned_list.arr[0], &aligned_list.arr[aligned_list.size], 0, sum_lambda);
   std::cout << "sum: " << sum << "\n";
 }
 
-CREATE_ELEMENT_WITH_CODE(PackedStructAccess) {
+ELEMENT_CODE(PackedStructAccess) {
   using namespace packed_data_access;
   unsigned int sum = std::accumulate(&packed_list.arr[0], &packed_list.arr[packed_list.size], 0, sum_lambda);
   std::cout << "sum: " << sum << "\n";

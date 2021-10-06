@@ -1,6 +1,4 @@
-#pragma once
-
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -156,11 +154,11 @@ namespace crtp {
 } // namespace crtp 
 
 
-CREATE_ELEMENT_WITH_CODE(DynamicPolymorphismExample) {
+ELEMENT_CODE(DynamicPolymorphismExample) {
   crtp::dynamicpolymorphism::usage();
 }
 
-CREATE_ELEMENT_WITH_CODE(StaticPolymorphismExample) {
+ELEMENT_CODE(StaticPolymorphismExample) {
   crtp::staticpolymorphism::usage();
 }
 

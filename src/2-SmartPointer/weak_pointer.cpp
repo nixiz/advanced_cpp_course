@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <vector>
 #include <set>
 #include <memory>
@@ -21,7 +20,7 @@ namespace weakpointer {
           }
           virtual ~Observer()
           {
-            // hatayý gerçekleþtirebilmek için
+            // hatayï¿½ gerï¿½ekleï¿½tirebilmek iï¿½in
             if (!disabledUnregister)
             {
               _topicPtr->UnregisterObserver(this);
@@ -239,7 +238,7 @@ namespace weakpointer {
 
 } // namespace weakpointer
 
-CREATE_ELEMENT_WITH_CODE(WeakPointerUsageRealWorld) {
+ELEMENT_CODE(WeakPointerUsageRealWorld) {
   using namespace weakpointer;
   problem::definition::ProblemDemo::Demonstrate();
   problem::sharedptr::ProblemDemo::Demonstrate();

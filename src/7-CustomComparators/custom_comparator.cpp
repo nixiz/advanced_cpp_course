@@ -1,6 +1,6 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
+#include <sstream>
 #include <chrono>
 #include <utility>
 #include <cmath>
@@ -54,9 +54,9 @@ namespace ccn {
     }
   };
 
-  // Sadece Student tipteki iterator tipleri için geçerli olacaktýr.
-  // Bu sayede, fonksiyon içerisinde begin -> end arasýndaki iterasyonlarda 
-  // Student sýnýfýnýn özelliklerine eriþebileceðimiz garanti altýna almýþ oluyoruz.
+  // Sadece Student tipteki iterator tipleri iï¿½in geï¿½erli olacaktï¿½r.
+  // Bu sayede, fonksiyon iï¿½erisinde begin -> end arasï¿½ndaki iterasyonlarda 
+  // Student sï¿½nï¿½fï¿½nï¿½n ï¿½zelliklerine eriï¿½ebileceï¿½imiz garanti altï¿½na almï¿½ï¿½ oluyoruz.
   template <typename Iter,
     typename = typename std::enable_if<
     std::is_same<typename std::iterator_traits<Iter>::value_type, Student*>::value>::type >
@@ -105,13 +105,13 @@ namespace ccn {
 
 
 
-CREATE_ELEMENT_WITH_CODE(CustomComparatorNeedExample) {
+ELEMENT_CODE(CustomComparatorNeedExample) {
 
   ccn::problem();
   ccn::solution::usage();
 }
 
-CREATE_ELEMENT_WITH_CODE(CustomComparatorExample) {
+ELEMENT_CODE(CustomComparatorExample) {
 
   {
     std::map<float, int, STMValueComparator> mm; // use numeric limit epsilon
