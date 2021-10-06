@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _CPP_Playground_ORGANIZER_HPP_
 #define _CPP_Playground_ORGANIZER_HPP_
 

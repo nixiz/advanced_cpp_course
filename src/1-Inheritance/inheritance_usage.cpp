@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
 
 namespace InheritanceUsage {
@@ -28,7 +27,7 @@ namespace InheritanceUsage {
 
 } // namespace InheritanceUsage
 
-CREATE_ELEMENT_WITH_CODE(InheritanceUsageExample) {
+ELEMENT_CODE(InheritanceUsageExample) {
   using namespace InheritanceUsage;
   Rectangle rect;
   Triangle trgl;

@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
 #include <typeinfo>
 
@@ -10,7 +9,7 @@ namespace templatedecltype {
   }
 }
 
-CREATE_ELEMENT_WITH_CODE(ReturnTypeDecleration) {
+ELEMENT_CODE(ReturnTypeDecleration) {
   int    i = templatedecltype::Sum(1, 2);
   double d = templatedecltype::Sum(1.0, 2.1);
   auto   a = templatedecltype::Sum(1, 2.1);

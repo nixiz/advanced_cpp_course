@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
 #include <string>
 #include <tuple>
@@ -67,7 +66,7 @@ namespace template_container {
 
 } // namespace template_container 
 
-CREATE_ELEMENT_WITH_CODE(TemplateContainerExample) {
+ELEMENT_CODE(TemplateContainerExample) {
   using namespace template_container;
   std::vector<GeoObjContainer*> vec;
   vec.push_back(new GeoObjContainer(Line{}));

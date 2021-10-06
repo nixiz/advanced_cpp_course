@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <benchmarker.hpp>
 #include <atomic>
 #include <thread>
@@ -213,7 +212,7 @@ namespace false_sharing
 
 } // namespace false_sharing
 
-CREATE_ELEMENT_WITH_CODE(FalseSharingSingleAtomic) {
+ELEMENT_CODE(FalseSharingSingleAtomic) {
   using namespace false_sharing::sharing_single_atomic;
   auto print_result = [](const auto& result) {
     std::cout << "duration: " << result.first << " msec\n";
@@ -241,7 +240,7 @@ CREATE_ELEMENT_WITH_CODE(FalseSharingSingleAtomic) {
   print_result(result_5);
 }
 
-CREATE_ELEMENT_WITH_CODE(FalseSharingAtomicsInSingleCacheLine) {
+ELEMENT_CODE(FalseSharingAtomicsInSingleCacheLine) {
   using namespace false_sharing::sharing_atomics_in_one_chache_line;
   auto print_result = [](const auto& result) {
     std::cout << "duration: " << result.first << " msec\n";
@@ -257,13 +256,13 @@ CREATE_ELEMENT_WITH_CODE(FalseSharingAtomicsInSingleCacheLine) {
   print_result(benchmarker::run(test_4));
 }
 /*
-  Windows içerisinde atomic deðiþkenlerin memory order yönetimleri exclusively locked (mutex ile ayný!) olduðu için
-  aþaðýda 'FalseSharingResolved' içerisinde kullanýlan kodda atomik deðiþkenler farklý cache line'larda
-  yerleþmelerine raðmen mutex kullanýmý yüzünden toplam iþlem süresi diðerlerinden farklý olmayacaktýr!
-  Linux veya unix (mac) iþletim sistemlerinde atomik yapýlarýn memory order yönetimi esnek çalýþtýðýndan sonuç,
-  sunumdaki grafik gibi olacaktýr.
+  Windows iï¿½erisinde atomic deï¿½iï¿½kenlerin memory order yï¿½netimleri exclusively locked (mutex ile aynï¿½!) olduï¿½u iï¿½in
+  aï¿½aï¿½ï¿½da 'FalseSharingResolved' iï¿½erisinde kullanï¿½lan kodda atomik deï¿½iï¿½kenler farklï¿½ cache line'larda
+  yerleï¿½melerine raï¿½men mutex kullanï¿½mï¿½ yï¿½zï¿½nden toplam iï¿½lem sï¿½resi diï¿½erlerinden farklï¿½ olmayacaktï¿½r!
+  Linux veya unix (mac) iï¿½letim sistemlerinde atomik yapï¿½larï¿½n memory order yï¿½netimi esnek ï¿½alï¿½ï¿½tï¿½ï¿½ï¿½ndan sonuï¿½,
+  sunumdaki grafik gibi olacaktï¿½r.
 */
-CREATE_ELEMENT_WITH_CODE(FalseSharingResolved) {
+ELEMENT_CODE(FalseSharingResolved) {
   auto print_result = [](const auto& result) {
     std::cout << "duration: " << result.first << " msec\n";
     std::cout << "result: " << std::to_string(result.second) << "\n";

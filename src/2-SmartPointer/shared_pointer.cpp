@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <vector>
 #include <thread>
 #include <chrono>
@@ -186,18 +185,18 @@ namespace sharedpointer {
 
 } // namespace sharedpointer
 
-CREATE_ELEMENT_WITH_CODE(SharedPointerUsage) {
+ELEMENT_CODE(SharedPointerUsage) {
   using namespace sharedpointer;
   //shared_ptr_usage().join();
   usage_enable_shared_from_this().join();
 }
 
-CREATE_ELEMENT_WITH_CODE(WeakPointerUsage) {
+ELEMENT_CODE(WeakPointerUsage) {
   using namespace sharedpointer;
   usage_weak_ptr();
 }
 
-CREATE_ELEMENT_WITH_CODE(SharedPointerPoolUsage) {
+ELEMENT_CODE(SharedPointerPoolUsage) {
   using namespace sharedpointer;
   usage_release_pool();
 }

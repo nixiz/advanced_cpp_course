@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <string.h>
 #include "inc/number.hpp"
 
@@ -66,7 +65,7 @@ namespace smartpointer {
   }
 } // namespace smartpointer
 
-CREATE_ELEMENT_WITH_CODE(SmartPointerUsage) {
+ELEMENT_CODE(SmartPointerUsage) {
   using namespace smartpointer;
   try
   {

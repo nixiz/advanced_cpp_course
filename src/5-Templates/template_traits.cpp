@@ -1,6 +1,5 @@
-#pragma once
-#include <playground_organizer.hpp>
-#include <string>
+#include <advanced_cpp_topics.h>
+#include <cstring>
 
 namespace template_traits
 {
@@ -13,7 +12,7 @@ namespace template_traits
     public:
       stream_buffer(const std::string& input) {
         buff = new char[input.size()];
-        memcpy(buff, input.c_str(), input.size());
+        std::memcpy(buff, input.c_str(), input.size());
       }
 
       ~stream_buffer()
@@ -31,6 +30,6 @@ namespace template_traits
   } // namespace problem
 }
 
-CREATE_ELEMENT_WITH_CODE(TemplateTraits) {
+ELEMENT_CODE(TemplateTraits) {
 
 }

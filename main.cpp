@@ -1,47 +1,9 @@
 #include <playground_organizer.hpp>
 #include <iostream>
 #include <string>
+#include <sstream>
 
-// Inheritance
-#include "friend_usage.hpp"
-#include "inheritance_usage.hpp"
-#include "diamond_problem.hpp"
-#include "virtual_destructor.hpp"
-
-// Smart Pointers
-#include "malloc_usage.hpp"
-#include "smart_pointer.hpp"
-#include "shared_pointer.hpp"
-#include "weak_pointer.hpp"
-#include "bonus/bonus_old_style_smart_pointer.hpp"
-
-// Static Usage
-#include "static_usage.hpp"
-
-// CPU Architecture
-#include "cpu_cache_misses.hpp"
-#include "branch_prediction.hpp"
-#include "packed_data_access.hpp"
-#include "false_sharing.hpp"
-
-// Templates
-#include "template_mixin.hpp"
-#include "template_staticpolymorphism.hpp"
-#include "template_crtp_usage.hpp"
-#include "template_decltype.hpp"
-#include "template_container.hpp"
-#include "template_policies.hpp"
-#include "template_static_assert.hpp"
-#include "template_inheritance_usage.hpp"
-
-// Exceptions
-#include "exception_usage.hpp"
-
-// Custom Comparators
-#include "custom_comparator.hpp"
-
-// C++ 11 Features
-#include "async_usage.hpp"
+#include "advanced_cpp_topics.h"
 
 
 int CppOrganizer::ICodeRunnerIdentifier::quest_id = 0;

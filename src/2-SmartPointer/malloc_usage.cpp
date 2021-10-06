@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include "inc/number.hpp"
 
 namespace mallocusage {
@@ -71,7 +70,7 @@ namespace mallocusage {
   }
 } // namespace mallocusage
 
-CREATE_ELEMENT_WITH_CODE(MallocUsageExample) {
+ELEMENT_CODE(MallocUsageExample) {
   mallocusage::DoublePointerUsage();
   mallocusage::CallocUsage();
   {

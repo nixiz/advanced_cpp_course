@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
 #include "inc/number.hpp"
 
@@ -142,7 +141,7 @@ class ERROR_##msg {}; \
 
 } // namespace staticassert
 
-CREATE_ELEMENT_WITH_CODE(TemplateStaticAssert) {
+ELEMENT_CODE(TemplateStaticAssert) {
   namespace sa = staticassert;
 
   sa::definition::willsuccess();

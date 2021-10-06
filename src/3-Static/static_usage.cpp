@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
 #include <sstream>
 #include <thread>
@@ -28,7 +27,7 @@ namespace StaticUsage {
   unsigned int CountedObject::_id = 0;
 }
 
-CREATE_ELEMENT_WITH_CODE(StaticUsageExample) {
+ELEMENT_CODE(StaticUsageExample) {
   using namespace StaticUsage;
   std::thread t1([]() {
     for (size_t i = 0; i < 10; i++)

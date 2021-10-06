@@ -1,20 +1,19 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
 #include "inc/number.hpp"
 
 using namespace std;
 
 /*
-  daha detaylý anlatým ve örnek için aþaðýdaki link'ten faydalanýlabilir:
+  daha detaylï¿½ anlatï¿½m ve ï¿½rnek iï¿½in aï¿½aï¿½ï¿½daki link'ten faydalanï¿½labilir:
   http://www.thinkbottomup.com.au/site/blog/C%20%20_Mixins_-_Reuse_through_inheritance_is_good
 */
 namespace mixin {
   namespace problem
   {
 
-    // number sýnýfýmýz için bir interface tanýmlamasý yapmýþ olalým
-    // number sýfýmýzýn da bu interface üzerinden türediðini varsayalým
+    // number sï¿½nï¿½fï¿½mï¿½z iï¿½in bir interface tanï¿½mlamasï¿½ yapmï¿½ï¿½ olalï¿½m
+    // number sï¿½fï¿½mï¿½zï¿½n da bu interface ï¿½zerinden tï¿½rediï¿½ini varsayalï¿½m
     struct INumber {
       virtual ~INumber() {};
       virtual void set(int v) = 0;
@@ -23,8 +22,8 @@ namespace mixin {
 
     namespace approach_using_inheritance
     {
-      // ve bu number interface'ine uygun olan sýnýflar için undo özelliði 
-      // eklemek isteyelim. bunun için de aþaðýdaki abstract sýnýfý yazalým
+      // ve bu number interface'ine uygun olan sï¿½nï¿½flar iï¿½in undo ï¿½zelliï¿½i 
+      // eklemek isteyelim. bunun iï¿½in de aï¿½aï¿½ï¿½daki abstract sï¿½nï¿½fï¿½ yazalï¿½m
       class IUndoableNumber : public INumber {
       protected:
         int _number_old;
@@ -44,7 +43,7 @@ namespace mixin {
         virtual void setNewNumber(int v) = 0;
       };
 
-      // ayný þekilde redo yapabilmesi için gerekli ara abstract sýnýfý yazalým
+      // aynï¿½ ï¿½ekilde redo yapabilmesi iï¿½in gerekli ara abstract sï¿½nï¿½fï¿½ yazalï¿½m
       class IRedoableNumber : public INumber {
       protected:
         int _number_after;
@@ -64,9 +63,9 @@ namespace mixin {
         virtual void setNewNumber(int v) = 0;
       };
 
-      // gerçeklemek istediðimiz number sýnýfýný undo özelliðine sahip olmasý
-      // için IUndoableNumber'dan türemesi yeterli, ancak hem undo hem de redo 
-      // yapmak istediðimiz zaman bunu çözebiliriz??
+      // gerï¿½eklemek istediï¿½imiz number sï¿½nï¿½fï¿½nï¿½ undo ï¿½zelliï¿½ine sahip olmasï¿½
+      // iï¿½in IUndoableNumber'dan tï¿½remesi yeterli, ancak hem undo hem de redo 
+      // yapmak istediï¿½imiz zaman bunu ï¿½ï¿½zebiliriz??
       class UndoableNumber : public IUndoableNumber/*, public IRedoableNumber*/ {
       public:
         UndoableNumber(int initial = 0) : _num(initial) { }
@@ -77,11 +76,11 @@ namespace mixin {
       };
       /*
       Buradaki problemler:
-      - base class kullanýmý ile bu gerçeklemeyi yapmaya çalýþtýðýmýmzda ambiguity problemi
-      ile karþýlaþýyoruz.
-      - Ayný þekilde base class'larýn üzerine kabuk yazarak ekstra virtual metodlar ile
-      'vtable' kullamýný daha da arttýrmýþ oluyoruz, ki bu kodun iþletimi açýsýndan çok kötü
-      bir yaklaþým.
+      - base class kullanï¿½mï¿½ ile bu gerï¿½eklemeyi yapmaya ï¿½alï¿½ï¿½tï¿½ï¿½ï¿½mï¿½mzda ambiguity problemi
+      ile karï¿½ï¿½laï¿½ï¿½yoruz.
+      - Aynï¿½ ï¿½ekilde base class'larï¿½n ï¿½zerine kabuk yazarak ekstra virtual metodlar ile
+      'vtable' kullamï¿½nï¿½ daha da arttï¿½rmï¿½ï¿½ oluyoruz, ki bu kodun iï¿½letimi aï¿½ï¿½sï¿½ndan ï¿½ok kï¿½tï¿½
+      bir yaklaï¿½ï¿½m.
       */
       void Demonstrate() {
         UndoableNumber n(5);
@@ -155,12 +154,12 @@ namespace mixin {
       };
 
       /*
-      Composite strategy pattern uygulasak bile, undo ve redo metodlarýný nasýl
-      çaðýracaðýz? birçok iþlem yaptýktan sonra bunu çözebiliriz ancak yine de
-      bir çok heap allocation yapmak zorunda kalacaðýz ve ayný þekilde yaratýlan
-      sýnýflarýn ownership'likleri kimde olacak veya lifecycle'ý kim yönetecek
-      problemleri olacaktýr.
-      Bu yaklaþým da sorunu tam anlamýyla çözmeyecektir.
+      Composite strategy pattern uygulasak bile, undo ve redo metodlarï¿½nï¿½ nasï¿½l
+      ï¿½aï¿½ï¿½racaï¿½ï¿½z? birï¿½ok iï¿½lem yaptï¿½ktan sonra bunu ï¿½ï¿½zebiliriz ancak yine de
+      bir ï¿½ok heap allocation yapmak zorunda kalacaï¿½ï¿½z ve aynï¿½ ï¿½ekilde yaratï¿½lan
+      sï¿½nï¿½flarï¿½n ownership'likleri kimde olacak veya lifecycle'ï¿½ kim yï¿½netecek
+      problemleri olacaktï¿½r.
+      Bu yaklaï¿½ï¿½m da sorunu tam anlamï¿½yla ï¿½ï¿½zmeyecektir.
       */
       void Demonstrate() {
         INumber * number =
@@ -178,10 +177,10 @@ namespace mixin {
 
     namespace approach_reversed_inheritance {
       /*
-      Bu yöntemde, amacýmýzýn number sýnýfýna undo ve redo özelliklerinin getirilmesi
-      olduðunu hatýrlayalým ve bunu bir þekilde çözmemiz gerektiðini düþünelim.
-      Bu problemi çözmek için de tüme varým yerine tam tersten düþünelim; yani tümden
-      varým yöntemini uygulayalým.
+      Bu yï¿½ntemde, amacï¿½mï¿½zï¿½n number sï¿½nï¿½fï¿½na undo ve redo ï¿½zelliklerinin getirilmesi
+      olduï¿½unu hatï¿½rlayalï¿½m ve bunu bir ï¿½ekilde ï¿½ï¿½zmemiz gerektiï¿½ini dï¿½ï¿½ï¿½nelim.
+      Bu problemi ï¿½ï¿½zmek iï¿½in de tï¿½me varï¿½m yerine tam tersten dï¿½ï¿½ï¿½nelim; yani tï¿½mden
+      varï¿½m yï¿½ntemini uygulayalï¿½m.
       */
       class Number : public INumber {
       public:
@@ -194,8 +193,8 @@ namespace mixin {
         int _num;
       };
 
-      // yukarýda da bahsettiðim gibi derived class'larý base class'lara yönlenmek yerine, 
-      // tam tersine base class'dan derived'larý gerçekleyelim. (bu ne biçim bir cümle oldu?!?)
+      // yukarï¿½da da bahsettiï¿½im gibi derived class'larï¿½ base class'lara yï¿½nlenmek yerine, 
+      // tam tersine base class'dan derived'larï¿½ gerï¿½ekleyelim. (bu ne biï¿½im bir cï¿½mle oldu?!?)
       class IUndoableNumber : public Number {
       protected:
         int _number_old = 0;
@@ -212,7 +211,7 @@ namespace mixin {
         }
       };
 
-      // ve redo özelliðini de undoable sýnýfýndan türeyerek ekleyelim.
+      // ve redo ï¿½zelliï¿½ini de undoable sï¿½nï¿½fï¿½ndan tï¿½reyerek ekleyelim.
       class IReundoableNumber : public IUndoableNumber {
       protected:
         int _number_after = 0;
@@ -230,9 +229,9 @@ namespace mixin {
       };
 
       /*
-      bu þekilde, bir þekilde number temel sýnýfýmýza undo ve redo özelliklerini kattýk!!!
-      ama bunu yaparken hiç de generik bir yaklaþým sergilemedik ve baþka tipteki sýnýflar
-      için undo/redo özelliðini katmamýz imkansýz oldu!!!
+      bu ï¿½ekilde, bir ï¿½ekilde number temel sï¿½nï¿½fï¿½mï¿½za undo ve redo ï¿½zelliklerini kattï¿½k!!!
+      ama bunu yaparken hiï¿½ de generik bir yaklaï¿½ï¿½m sergilemedik ve baï¿½ka tipteki sï¿½nï¿½flar
+      iï¿½in undo/redo ï¿½zelliï¿½ini katmamï¿½z imkansï¿½z oldu!!!
       */
       void Demonstrate() {
         IReundoableNumber num;
@@ -269,7 +268,7 @@ namespace mixin {
   } // namespace solution
 } // namespace mixin 
 
-CREATE_ELEMENT_WITH_CODE(MixinTemplateExampleProblem) {
+ELEMENT_CODE(MixinTemplateExampleProblem) {
   using namespace mixin::problem;
   approach_using_inheritance::Demonstrate();
 
@@ -278,7 +277,7 @@ CREATE_ELEMENT_WITH_CODE(MixinTemplateExampleProblem) {
   approach_reversed_inheritance::Demonstrate();
 }
 
-CREATE_ELEMENT_WITH_CODE(MixinTemplateExample) {
+ELEMENT_CODE(MixinTemplateExample) {
   mixin::solution::ReUndoableNumber mynum;
   mynum.set(42); mynum.set(84);
   cout << mynum.get() << '\n';  // 84

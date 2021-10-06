@@ -23,6 +23,7 @@ file (GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp 
 )
+message(STATUS "sources to PROJECT_SOURCE_DIR: ${SRC_FILES}")
 
 add_executable(${PROJECT_NAME} "main.cpp" ${SRC_FILES})
 

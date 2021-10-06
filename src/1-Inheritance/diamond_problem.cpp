@@ -1,14 +1,24 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
 #include <set>
 
-#include "template_inheritance_usage.hpp"
-
 namespace diamondproblem {
-  //namespace tt = TemplateInheritanceUsage::TemplateSolution;
-  using TemplateInheritanceUsage::TemplateSolution::Singleton;
-
+  template<typename T> // Template Singleton Implementer
+  class Singleton {
+  protected:
+    Singleton() = default;
+    Singleton(const Singleton&) = delete;
+    Singleton& operator=(const Singleton&) = delete;
+    virtual ~Singleton() = default;
+  public:
+    static T& getInstance()
+    {
+      // thread safety in initialization of static variable guaranteed with C++11 standard
+      static T instance;
+      return instance;
+    }
+  };
+    
   class Object;
   class STMFrameworkObjectManager : public Singleton<STMFrameworkObjectManager> {
     friend class Object;
@@ -102,7 +112,7 @@ namespace diamondproblem {
   }
 }  // namespace diamondproblem
 
-CREATE_ELEMENT_WITH_CODE(DiamondProblemExample) {
+ELEMENT_CODE(DiamondProblemExample) {
   namespace dp = diamondproblem;
   {
     dp::problem::ComponentA a;

@@ -1,5 +1,4 @@
-#pragma once
-#include <playground_organizer.hpp>
+#include <advanced_cpp_topics.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -9,6 +8,8 @@
 #include <future>
 #include <chrono>
 #include <thread>
+
+using namespace std::chrono_literals;
 
 namespace asyncusage {
 
@@ -58,7 +59,7 @@ namespace asyncusage {
 
 } // namespace asyncusage 
 
-CREATE_ELEMENT_WITH_CODE(AsyncUsageExample) {
+ELEMENT_CODE(AsyncUsageExample) {
   using namespace asyncusage;
   // list generated at compile time.
   constexpr auto list = CompileTimeArray<int, 10000>();
@@ -66,7 +67,7 @@ CREATE_ELEMENT_WITH_CODE(AsyncUsageExample) {
   std::cout << "Sum of array: " << sum << std::endl;
 }
 
-CREATE_ELEMENT_WITH_CODE(AsyncSequentialExample) {
+ELEMENT_CODE(AsyncSequentialExample) {
   using namespace asyncusage;
   // list generated at compile time.
   constexpr auto list = CompileTimeArray<int, 10000>();
@@ -115,7 +116,7 @@ namespace asyncfutureusage {
 
 } // namespace asyncfutureusage 
 
-CREATE_ELEMENT_WITH_CODE(AsyncFutureUsageExample) {
+ELEMENT_CODE(AsyncFutureUsageExample) {
   using namespace asyncfutureusage;
   {
     std::cout << "Calling FutureUsage()" << std::endl;
