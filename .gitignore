@@ -276,3 +276,12 @@ icterra-advanced-cpp-2018
 *.exe
 .DS_Store
 *.dSYM/
+*.pro.user
+*.xcworkspacedata
+*.plist
+*.xcuserstate
+src/.DS_Store
+src/.DS_Store
+*.pbxproj
+.DS_Store
+advanced_cpp_course
