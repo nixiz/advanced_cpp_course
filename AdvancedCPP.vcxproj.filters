@@ -42,31 +42,34 @@
     <ClInclude Include="inc\playground_organizer.hpp">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="src\1-Inheritance\diamond_problem.hpp">
+    <ClInclude Include="inc\advanced_cpp_topics.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\1-Inheritance\diamond_problem.cpp">
       <Filter>1-Inheritance</Filter>
     </ClInclude>
-    <ClInclude Include="src\1-Inheritance\friend_usage.hpp">
+    <ClInclude Include="src\1-Inheritance\friend_usage.cpp">
       <Filter>1-Inheritance</Filter>
     </ClInclude>
-    <ClInclude Include="src\1-Inheritance\inheritance_usage.hpp">
+    <ClInclude Include="src\1-Inheritance\inheritance_usage.cpp">
       <Filter>1-Inheritance</Filter>
     </ClInclude>
-    <ClInclude Include="src\1-Inheritance\virtual_destructor.hpp">
+    <ClInclude Include="src\1-Inheritance\virtual_destructor.cpp">
       <Filter>1-Inheritance</Filter>
     </ClInclude>
-    <ClInclude Include="src\2-SmartPointer\malloc_usage.hpp">
+    <ClInclude Include="src\2-SmartPointer\malloc_usage.cpp">
       <Filter>2-Smart Pointer</Filter>
     </ClInclude>
-    <ClInclude Include="src\2-SmartPointer\shared_pointer.hpp">
+    <ClInclude Include="src\2-SmartPointer\shared_pointer.cpp">
       <Filter>2-Smart Pointer</Filter>
     </ClInclude>
-    <ClInclude Include="src\2-SmartPointer\smart_pointer.hpp">
+    <ClInclude Include="src\2-SmartPointer\smart_pointer.cpp">
       <Filter>2-Smart Pointer</Filter>
     </ClInclude>
-    <ClInclude Include="src\2-SmartPointer\weak_pointer.hpp">
+    <ClInclude Include="src\2-SmartPointer\weak_pointer.cpp">
       <Filter>2-Smart Pointer</Filter>
     </ClInclude>
-    <ClInclude Include="src\2-SmartPointer\bonus\bonus_old_style_smart_pointer.hpp">
+    <ClInclude Include="src\2-SmartPointer\bonus\bonus_old_style_smart_pointer.cpp">
       <Filter>2-Smart Pointer\bonus</Filter>
     </ClInclude>
     <ClInclude Include="src\2-SmartPointer\bonus\handle.h">
@@ -75,58 +78,58 @@
     <ClInclude Include="src\2-SmartPointer\bonus\shared.h">
       <Filter>2-Smart Pointer\bonus</Filter>
     </ClInclude>
-    <ClInclude Include="src\3-Static\static_usage.hpp">
+    <ClInclude Include="src\3-Static\static_usage.cpp">
       <Filter>3-Static</Filter>
     </ClInclude>
-    <ClInclude Include="src\4-CPUArchitecture\cpu_cache_misses.hpp">
+    <ClInclude Include="src\4-CPUArchitecture\cpu_cache_misses.cpp">
       <Filter>4-CPU Architecture</Filter>
     </ClInclude>
-    <ClInclude Include="src\5-Templates\template_container.hpp">
+    <ClInclude Include="src\5-Templates\template_container.cpp">
       <Filter>5-Templates</Filter>
     </ClInclude>
-    <ClInclude Include="src\5-Templates\template_crtp_usage.hpp">
+    <ClInclude Include="src\5-Templates\template_crtp_usage.cpp">
       <Filter>5-Templates</Filter>
     </ClInclude>
-    <ClInclude Include="src\5-Templates\template_decltype.hpp">
+    <ClInclude Include="src\5-Templates\template_decltype.cpp">
       <Filter>5-Templates</Filter>
     </ClInclude>
-    <ClInclude Include="src\5-Templates\template_inheritance_usage.hpp">
+    <ClInclude Include="src\5-Templates\template_inheritance_usage.cpp">
       <Filter>5-Templates</Filter>
     </ClInclude>
-    <ClInclude Include="src\5-Templates\template_mixin.hpp">
+    <ClInclude Include="src\5-Templates\template_mixin.cpp">
       <Filter>5-Templates</Filter>
     </ClInclude>
-    <ClInclude Include="src\5-Templates\template_policies.hpp">
+    <ClInclude Include="src\5-Templates\template_policies.cpp">
       <Filter>5-Templates</Filter>
     </ClInclude>
-    <ClInclude Include="src\5-Templates\template_static_assert.hpp">
+    <ClInclude Include="src\5-Templates\template_static_assert.cpp">
       <Filter>5-Templates</Filter>
     </ClInclude>
-    <ClInclude Include="src\5-Templates\template_staticpolymorphism.hpp">
+    <ClInclude Include="src\5-Templates\template_staticpolymorphism.cpp">
       <Filter>5-Templates</Filter>
     </ClInclude>
-    <ClInclude Include="src\6-Exceptions\exception_usage.hpp">
+    <ClInclude Include="src\6-Exceptions\exception_usage.cpp">
       <Filter>6-Exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="src\7-CustomComparators\custom_comparator.hpp">
+    <ClInclude Include="src\7-CustomComparators\custom_comparator.cpp">
       <Filter>7-Custom Comparators</Filter>
     </ClInclude>
-    <ClInclude Include="src\8-Cpp11Features\async_usage.hpp">
+    <ClInclude Include="src\8-Cpp11Features\async_usage.cpp">
       <Filter>8-Cpp11 Features</Filter>
     </ClInclude>
-    <ClInclude Include="src\4-CPUArchitecture\packed_data_access.hpp">
+    <ClInclude Include="src\4-CPUArchitecture\packed_data_access.cpp">
       <Filter>4-CPU Architecture</Filter>
     </ClInclude>
-    <ClInclude Include="src\4-CPUArchitecture\branch_prediction.hpp">
+    <ClInclude Include="src\4-CPUArchitecture\branch_prediction.cpp">
       <Filter>4-CPU Architecture</Filter>
     </ClInclude>
-    <ClInclude Include="src\4-CPUArchitecture\false_sharing.hpp">
+    <ClInclude Include="src\4-CPUArchitecture\false_sharing.cpp">
       <Filter>4-CPU Architecture</Filter>
     </ClInclude>
     <ClInclude Include="inc\benchmarker.hpp">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="src\5-Templates\template_traits.hpp">
+    <ClInclude Include="src\5-Templates\template_traits.cpp">
       <Filter>5-Templates</Filter>
     </ClInclude>
   </ItemGroup>

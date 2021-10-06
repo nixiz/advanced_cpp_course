@@ -27,33 +27,40 @@ INCLUDEPATH += \
 
 SOURCES += \
         main.cpp \
-        src/2-SmartPointer/bonus/shared.cpp
+        src/1-Inheritance/diamond_problem.cpp \
+        src/1-Inheritance/friend_usage.cpp \
+        src/1-Inheritance/inheritance_usage.cpp \
+        src/1-Inheritance/virtual_destructor.cpp \
+        src/2-SmartPointer/bonus/shared.cpp \
+        src/2-SmartPointer/bonus/bonus_old_style_smart_pointer.cpp \
+        src/2-SmartPointer/malloc_usage.cpp \
+        src/2-SmartPointer/shared_pointer.cpp \
+        src/2-SmartPointer/smart_pointer.cpp \
+        src/2-SmartPointer/weak_pointer.cpp \
+        src/3-Static/static_usage.cpp \
+        src/4-CPUArchitecture/cpu_cache_misses.cpp \
+        src/4-CPUArchitecture/branch_prediction.cpp \
+        src/4-CPUArchitecture/false_sharing.cpp \
+        src/4-CPUArchitecture/packed_data_access.cpp \
+        src/5-Templates/template_container.cpp \
+        src/5-Templates/template_crtp_usage.cpp \
+        src/5-Templates/template_decltype.cpp \
+        src/5-Templates/template_inheritance_usage.cpp \
+        src/5-Templates/template_mixin.cpp \
+        src/5-Templates/template_policies.cpp \
+        src/5-Templates/template_static_assert.cpp \
+        src/5-Templates/template_staticpolymorphism.cpp \
+        src/5-Templates/template_traits.cpp \
+        src/6-Exceptions/exception_usage.cpp \
+        src/7-CustomComparators/custom_comparator.cpp \
+        src/8-Cpp11Features/async_usage.cpp
+        
 
 HEADERS += \
     inc/no_destruct.h \
     inc/number.hpp \
+    inc/benchmarker.hpp \
+    inc/advanced_cpp_topics.h \
     inc/playground_organizer.hpp \
-    src/1-Inheritance/diamond_problem.hpp \
-    src/1-Inheritance/friend_usage.hpp \
-    src/1-Inheritance/inheritance_usage.hpp \
-    src/1-Inheritance/virtual_destructor.hpp \
-    src/2-SmartPointer/bonus/bonus_old_style_smart_pointer.hpp \
     src/2-SmartPointer/bonus/handle.h \
-    src/2-SmartPointer/bonus/shared.h \
-    src/2-SmartPointer/malloc_usage.hpp \
-    src/2-SmartPointer/shared_pointer.hpp \
-    src/2-SmartPointer/smart_pointer.hpp \
-    src/2-SmartPointer/weak_pointer.hpp \
-    src/3-Static/static_usage.hpp \
-    src/4-CPUArchitecture/cpu_cache_misses.hpp \
-    src/5-Templates/template_container.hpp \
-    src/5-Templates/template_crtp_usage.hpp \
-    src/5-Templates/template_decltype.hpp \
-    src/5-Templates/template_inheritance_usage.hpp \
-    src/5-Templates/template_mixin.hpp \
-    src/5-Templates/template_policies.hpp \
-    src/5-Templates/template_static_assert.hpp \
-    src/5-Templates/template_staticpolymorphism.hpp \
-    src/6-Exceptions/exception_usage.hpp \
-    src/7-CustomComparators/custom_comparator.hpp \
-    src/8-Cpp11Features/async_usage.hpp
+    src/2-SmartPointer/bonus/shared.h
