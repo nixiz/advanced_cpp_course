@@ -31,7 +31,7 @@ namespace diamondproblem {
 
   class Object {
   public:
-    explicit Object(const char *name = "STM Object") : _name(name) {
+    explicit Object(const char *name = "Object") : _name(name) {
       STMFrameworkObjectManager::getInstance().RegisterObject(this);
     }
     virtual ~Object() {
@@ -57,11 +57,11 @@ namespace diamondproblem {
   namespace problem {
 
     class ComponentA : public Object {
-    public: ComponentA() : Object("STM ComponentA") { }
+    public: ComponentA() : Object("ComponentA") { }
     };
 
     class ComponentB : public Object {
-    public: ComponentB() : Object("STM ComponentB") { }
+    public: ComponentB() : Object("ComponentB") { }
     };
 #ifdef _WIN32
 #pragma warning( push )
@@ -71,7 +71,7 @@ namespace diamondproblem {
 #pragma GCC diagnostic ignored "-Winaccessible-base"
 #endif
     class CompositeComponent : public Object, public ComponentA {
-    public: CompositeComponent() : Object("STM CompositeComponent") { }
+    public: CompositeComponent() : Object("CompositeComponent") { }
     };
 #ifdef _WIN32
 #pragma warning( pop ) 
@@ -84,15 +84,15 @@ namespace diamondproblem {
   namespace solution {
 
     class ComponentA : virtual public Object {
-    public: ComponentA() : Object("STM ComponentA") { }
+    public: ComponentA() : Object("ComponentA") { }
     };
 
     class ComponentB : virtual public Object {
-    public: ComponentB() : Object("STM ComponentB") { }
+    public: ComponentB() : Object("ComponentB") { }
     };
 
     class CompositeComponent : public ComponentB, public ComponentA {
-    public: CompositeComponent() : Object("STM CompositeComponent") { }
+    public: CompositeComponent() : Object("CompositeComponent") { }
     };
 
   }  // namespace problem

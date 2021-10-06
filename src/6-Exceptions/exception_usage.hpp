@@ -67,7 +67,7 @@ namespace exceptions {
       {
         std::ostringstream exceptionStream;
         exceptionStream
-          << "STM Exception: "
+          << "Custom Exception: "
           << "\nin line: " << line
           << "\nfile: " << file;
         if (message)

@@ -155,15 +155,15 @@ namespace colorconsole {
       {
         if ((color & fg_blue))
         {
-          puts(BLUE);
+          printf("%s", BLUE);
         }
         else if ((color & fg_green))
         {
-          puts(GREEN);
+          printf("%s", GREEN);
         }
         else if ((color & fg_red))
         {
-          puts(RED);
+          printf("%s", RED);
         }
         else
         {
@@ -174,15 +174,15 @@ namespace colorconsole {
       {
         if ((color & fg_blue))
         {
-          puts(BOLDBLUE);
+          printf("%s", BOLDBLUE);
         }
         else if ((color & fg_green))
         {
-          puts(BOLDGREEN);
+          printf("%s", BOLDGREEN);
         }
         else if ((color & fg_red))
         {
-          puts(BOLDRED);
+          printf("%s", BOLDRED);
         }
         else
         {
@@ -192,7 +192,7 @@ namespace colorconsole {
       return true;
     }
     void Default() {
-      puts(RESET);
+      printf("%s", RESET);
     }
   };
 #endif
@@ -328,7 +328,7 @@ namespace CppOrganizer
   // Add helper without using macro
   //template <class ClassName, typename ...Args>
   //std::shared_ptr<ClassName> Add(Args&&... args) {
-  //  // ctor'da debug edebilmek için
+  //  // ctor'da debug edebilmek iï¿½in
   //  return std::shared_ptr<ClassName>(new ClassName(std::forward<Args>(args)...));
   //  //return std::make_shared<ClassName, Args...>(std::forward<Args>(args)...);
   //}
