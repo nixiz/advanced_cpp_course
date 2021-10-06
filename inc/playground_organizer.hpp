@@ -230,7 +230,7 @@ namespace CppOrganizer
   class CodeExecuteBenchmark {
   public:
     template <typename Fun>
-    explicit CodeExecuteBenchmark(const Fun& func, const ICodeRunnerIdentifier& iden_)
+    CodeExecuteBenchmark(const Fun& func, const ICodeRunnerIdentifier& iden_)
     {
       using clock = std::chrono::high_resolution_clock;
       using duration = std::chrono::duration<double, std::milli>;
@@ -270,8 +270,7 @@ namespace CppOrganizer
         printf("\nCode[%d]:%s failed to execute!\nUnhandled Exception occured!\n", iden_.getID(), iden_.getName().c_str());
       }
     }
-    ~CodeExecuteBenchmark() {
-    }
+    ~CodeExecuteBenchmark() = default;
   private:
     //std::function<void()> f_;
     //const ICodeRunnerIdentifier& iden_;
@@ -286,7 +285,7 @@ namespace CppOrganizer
     virtual ~CodeRunnerHelper() {};
 
     void RunCode() override {
-      CodeExecuteBenchmark{ std::bind(&T::Run, static_cast<T *>(this)), *this };
+      CodeExecuteBenchmark( std::bind(&T::Run, static_cast<T *>(this)), *this );
     }
 
   protected:
