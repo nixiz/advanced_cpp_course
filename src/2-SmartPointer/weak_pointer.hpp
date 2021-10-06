@@ -178,11 +178,11 @@ namespace weakpointer {
         virtual void OnTopicUpdated(std::string) = 0;
         void Register() {
           if (topicPtr.expired()) return;
-          topicPtr.lock()->RegisterObserver(shared_from_this());
+          topicPtr.lock()->RegisterObserver(weak_from_this());
         }
         void Unregister() {
           if (topicPtr.expired()) return;
-          topicPtr.lock()->UnregisterObserver(shared_from_this());
+          topicPtr.lock()->UnregisterObserver(weak_from_this());
         }
       };
     public:

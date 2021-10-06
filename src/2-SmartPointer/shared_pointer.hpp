@@ -40,6 +40,7 @@ namespace sharedpointer {
       return shared_from_this();
     }
     SharedNumber(int initial) : Number(initial) { }
+    ~SharedNumber() {}
 
     int increment()
     {
@@ -56,7 +57,7 @@ namespace sharedpointer {
     }
   };
 
-  auto usage_enable_shared_from_this()
+  auto usage_enable_shared_from_this_old()
   {
     //auto = std::shared_ptr<SharedNumber>
     auto shared_number_ptr = std::make_shared<SharedNumber>(10);
@@ -75,6 +76,26 @@ namespace sharedpointer {
     // send SharedNumber as raw pointer and exit from the scope
     return std::move(func(shared_number_ptr.get()));
   }
+
+  auto usage_enable_shared_from_this()
+  {
+    auto create_shared_number = [](int val) {
+      auto num = new SharedNumber{ val };
+      auto shrd = num->getptr();
+      return shrd;
+    };
+
+    auto shrd_num = create_shared_number(10);
+    std::thread t1([](const auto& num_ptr) {
+      while (num_ptr->decrement() > 0) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        std::cout << num_ptr->toString() << "\n";
+      }
+    }, shrd_num);
+
+    return std::move(t1);
+  }
+
 
   void usage_weak_ptr()
   {
@@ -167,7 +188,7 @@ namespace sharedpointer {
 
 CREATE_ELEMENT_WITH_CODE(SharedPointerUsage) {
   using namespace sharedpointer;
-  shared_ptr_usage().join();
+  //shared_ptr_usage().join();
   usage_enable_shared_from_this().join();
 }
 

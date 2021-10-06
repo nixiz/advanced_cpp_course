@@ -126,6 +126,9 @@
     <ClInclude Include="inc\benchmarker.hpp">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="src\5-Templates\template_traits.hpp">
+      <Filter>5-Templates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\2-SmartPointer\bonus\shared.cpp">

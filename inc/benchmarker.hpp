@@ -49,13 +49,14 @@ struct benchmarker
   template <typename Fun, typename ...Args>
   static inline auto run(Fun&& func, Args&& ...args) -> std::pair<duration_type, typename return_type_holder<decltype(std::forward<Fun>(func)(std::forward<Args>(args)...))>::type>
   {
-    using return_type = decltype(std::forward<Fun>(func)(std::forward<Args>(args)...));
+    using return_type = std::invoke_result_t<Fun, Args...>;
+    //using return_type = decltype(std::forward<Fun>(func)(std::forward<Args>(args)...));
     duration elapsed;
     clock::time_point start = clock::now();
 
     if constexpr (std::is_void_v<return_type>)
     {
-      std::forward<Fun>(func)(std::forward<Args>(args)...);
+      std::invoke(std::forward<Fun>(func), std::forward<Args>(args)...);
       elapsed = clock::now() - start;
       return std::make_pair(elapsed.count() / 1000.0, return_type_holder<void>::empty_struct{});
     }

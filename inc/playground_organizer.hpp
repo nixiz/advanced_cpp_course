@@ -123,24 +123,77 @@ namespace colorconsole {
     bool bInitialized = false;
   };
 #else
-  // TODO(oguzhank): implement for linux and other platforms
   class ConsoleColorManager {
+    const char* RESET = "\033[0m";
+    const char* BLACK = "\033[30m";      /* Black */
+    const char* RED = "\033[31m";      /* Red */
+    const char* GREEN = "\033[32m";      /* Green */
+    const char* YELLOW = "\033[33m";      /* Yellow */
+    const char* BLUE = "\033[34m";      /* Blue */
+    const char* MAGENTA = "\033[35m";      /* Magenta */
+    const char* CYAN = "\033[36m";      /* Cyan */
+    const char* WHITE = "\033[37m";      /* White */
+    const char* BOLDBLACK = "\033[1m\033[30m";      /* Bold Black */
+    const char* BOLDRED = "\033[1m\033[31m";      /* Bold Red */
+    const char* BOLDGREEN = "\033[1m\033[32m";      /* Bold Green */
+    const char* BOLDYELLOW = "\033[1m\033[33m";      /* Bold Yellow */
+    const char* BOLDBLUE = "\033[1m\033[34m";      /* Bold Blue */
+    const char* BOLDMAGENTA = "\033[1m\033[35m";      /* Bold Magenta */
+    const char* BOLDCYAN = "\033[1m\033[36m";      /* Bold Cyan */
+    const char* BOLDWHITE = "\033[1m\033[37m";      /* Bold White */
+
   public:
     enum Color {
-      _default,
-      fg_blue,
-      fg_green,
-      fg_red,
-      fg_intensified,
-      bg_blue,
-      bg_green,
-      bg_red,
-      bg_intensified,
+      _default = 0,
+      fg_blue = 1,
+      fg_green = 2,
+      fg_red = 4,
+      fg_intensified = 8,
     };
     bool SetConsoleColor(unsigned short color) {
-      return false;
+      if ((color & fg_intensified))
+      {
+        if ((color & fg_blue))
+        {
+          puts(BLUE);
+        }
+        else if ((color & fg_green))
+        {
+          puts(GREEN);
+        }
+        else if ((color & fg_red))
+        {
+          puts(RED);
+        }
+        else
+        {
+          return false;
+        }
+      }
+      else
+      {
+        if ((color & fg_blue))
+        {
+          puts(BOLDBLUE);
+        }
+        else if ((color & fg_green))
+        {
+          puts(BOLDGREEN);
+        }
+        else if ((color & fg_red))
+        {
+          puts(BOLDRED);
+        }
+        else
+        {
+          return false;
+        }
+      }
+      return true;
     }
-    void Default() { }
+    void Default() {
+      puts(RESET);
+    }
   };
 #endif
 
