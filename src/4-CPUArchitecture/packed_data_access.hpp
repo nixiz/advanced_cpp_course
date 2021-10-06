@@ -11,8 +11,7 @@ namespace packed_data_access
     double value;
   };
 
-#ifdef WIN32
-
+#ifdef _WIN32
 #pragma pack(push,1)
   struct PackedStruct
   {
@@ -20,6 +19,12 @@ namespace packed_data_access
     double value;
   };
 #pragma pack(pop)
+#else
+  struct PackedStruct {
+    char c;
+    double value;
+  } __attribute__((packed));
+#endif
 
   template <typename S, int Size>
   struct StructCreator
@@ -36,38 +41,8 @@ namespace packed_data_access
     std::size_t size;
     S arr[Size];
   };
-  // Visual Studio compilers are crashing due to 
-  // their bugs when using nested constexpr structs
-  // bu sebepten dolayi derleyici zamani yerine programin 
-  // calistirildiginda static olarak yaratiyorum
   static StructCreator<AlignedStruct, 1024 * 1024> aligned_list;
   static StructCreator<PackedStruct, 1024 * 1024> packed_list;
-
-#else
-  //#include <cstdint>
-
-  struct PackedStruct {
-    char c;
-    double value;
-  } __attribute__((packed));
-
-  template <typename S, int Size>
-  struct StructCreator
-  {
-    constexpr StructCreator() : arr(), size(Size - 1)
-    {
-      auto len = size;
-      while (--len > 0)
-      {
-        arr[len].c = 'a' + (len % 20);
-        arr[len].value = len / 1000.0;
-      }
-    }
-    std::size_t size;
-    S arr[Size];
-  };
-#endif
-
 }
 
 // iki yapinin icerdigi veriler ayni olsa da uzunluklari farkli olacaktir
@@ -81,18 +56,12 @@ auto sum_lambda = [](int sum, const auto& s) {
 
 CREATE_ELEMENT_WITH_CODE(AlignedStructAccess) {
   using namespace packed_data_access;
-#ifndef WIN32
-  constexpr auto aligned_list = StructCreator<AlignedStruct, 1024 * 10>();
-#endif
   unsigned int sum = std::accumulate(&aligned_list.arr[0], &aligned_list.arr[aligned_list.size], 0, sum_lambda);
   std::cout << "sum: " << sum << "\n";
 }
 
 CREATE_ELEMENT_WITH_CODE(PackedStructAccess) {
   using namespace packed_data_access;
-#ifndef WIN32
-  constexpr auto packed_list = StructCreator<PackedStruct, 1024 * 10>();
-#endif
   unsigned int sum = std::accumulate(&packed_list.arr[0], &packed_list.arr[packed_list.size], 0, sum_lambda);
   std::cout << "sum: " << sum << "\n";
 }

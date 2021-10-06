@@ -21,7 +21,7 @@ struct return_type_holder<void>
 };
 
 /*
-  TODO(oguzhank): bu sekilde bir benchmarker güzel olabilir
+  TODO(oguzhank): bu sekilde bir benchmarker gï¿½zel olabilir
   benchmarker()
     .prepare([]{
       std::cout << "thread count : 2\n";
@@ -142,7 +142,7 @@ _NODISCARD inline string to_string(std::monostate)
 _STD_END
 #else
 namespace std {
-  [[nodiscard]] inline string to_string(return_type_holder<void>::empty_struct)
+  [[nodiscard]] inline string to_string(std::monostate)
   {	// convert void to string
     return string{};
   }

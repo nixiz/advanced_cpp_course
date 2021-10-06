@@ -285,3 +285,4 @@ src/.DS_Store
 *.pbxproj
 .DS_Store
 advanced_cpp_course
+build/
