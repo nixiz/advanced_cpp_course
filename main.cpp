@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
   CppOrganizer::PlaygroundOrganizer po;
   po.builder()
     // Inheritance
+    .Add<InheritanceUsageExample>()
     .Add<DiamondProblemExample>()
     .Add<VirtualDestructorUsage>()
     .Add<FriendUsageExample>()
