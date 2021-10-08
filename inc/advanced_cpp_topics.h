@@ -2,10 +2,11 @@
 #include "playground_organizer.hpp"
 
 // Inheritance
-CREATE_ELEMENT(FriendUsageExample);
 CREATE_ELEMENT(InheritanceUsageExample);
+CREATE_ELEMENT(InheritanceAccessControl);
 CREATE_ELEMENT(DiamondProblemExample);
 CREATE_ELEMENT(VirtualDestructorUsage);
+CREATE_ELEMENT(FriendUsageExample);
 
 // Smart Pointers
 CREATE_ELEMENT(MallocUsageExample);

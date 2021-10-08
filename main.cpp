@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
   po.builder()
     // Inheritance
     .Add<InheritanceUsageExample>()
+    .Add<InheritanceAccessControl>()
     .Add<DiamondProblemExample>()
     .Add<VirtualDestructorUsage>()
     .Add<FriendUsageExample>()
