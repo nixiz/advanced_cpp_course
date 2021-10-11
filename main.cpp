@@ -13,6 +13,7 @@ int main(int argc, char *argv[]) {
     // Inheritance
     .Add<InheritanceUsageExample>()
     .Add<InheritanceAccessControl>()
+    .Add<InheritanceVirtualFunctions>()
     .Add<DiamondProblemExample>()
     .Add<VirtualDestructorUsage>()
     .Add<FriendUsageExample>()

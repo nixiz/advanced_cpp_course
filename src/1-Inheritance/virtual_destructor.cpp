@@ -42,7 +42,7 @@ namespace virtualdestructor {
     {
       printf("\nDerivedFromObject created: %s", name);
       // ! gcc has a bug for decltype of private member !
-#ifdef WIN32
+#ifdef _WIN32
       _nameSize = new Number(static_cast<decltype(Number::n)>(strlen(name)));
 #else
       _nameSize = new Number(strlen(name));

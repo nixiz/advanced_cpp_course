@@ -4,6 +4,7 @@
 // Inheritance
 CREATE_ELEMENT(InheritanceUsageExample);
 CREATE_ELEMENT(InheritanceAccessControl);
+CREATE_ELEMENT(InheritanceVirtualFunctions);
 CREATE_ELEMENT(DiamondProblemExample);
 CREATE_ELEMENT(VirtualDestructorUsage);
 CREATE_ELEMENT(FriendUsageExample);
