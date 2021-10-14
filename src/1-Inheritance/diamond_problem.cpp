@@ -53,10 +53,13 @@ namespace diamondproblem {
       float base, height, y_angle;
     };
 
-    class ComplexShape : public Triangle, public Rectangle {
+    class ComplexShape 
+      : public Triangle
+      , public Rectangle 
+    {
     public:
       ComplexShape(Rectangle r, Triangle t)
-        //: Shape("Square")
+        //: Shape("ComplexShape")
         : Rectangle(r)
         , Triangle(t)
       { }
@@ -114,7 +117,7 @@ namespace diamondproblem {
       float width;
       float height;
     };
-
+ 
     class Triangle : virtual public Shape {
     public:
       Triangle(float b, float h, float y)
