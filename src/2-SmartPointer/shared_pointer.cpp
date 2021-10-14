@@ -6,40 +6,36 @@
 #include "inc/number.hpp"
 
 namespace sharedpointer {
+  using namespace std::chrono_literals;
+  using namespace std;
 
-
-  auto shared_ptr_usage()
+  void second_thread_func(std::shared_ptr<Number> num)
   {
-    std::shared_ptr<Number> sharedNumber{ new Number{10} };
-    std::cout << "\nprocess[thread: " << std::this_thread::get_id() << "] started\n";
-    std::cout << "use count for shared_ptr<Number>: " << sharedNumber.use_count() << std::endl;
-
-    std::thread second_thread([](std::shared_ptr<Number> num) {
-      std::cout << "process[thread: " << std::this_thread::get_id() << "] started\n";
-      std::cout << "use count for shared_ptr<Number>: " << num.use_count() << std::endl;
-      unsigned count = 0;
-      while (count < 3) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-        if (rand() % 10 == 0) ++count;
-      }
-      std::cout << "process[thread: " << std::this_thread::get_id() << "] done and will be destroyed\n";
-    }, sharedNumber);
-
-    unsigned count = 0;
-    while (count < 3) {
-      std::this_thread::sleep_for(std::chrono::milliseconds(200));
-      if (rand() % 10 == 0) ++count;
-    }
-    std::cout << "process[thread: " << std::this_thread::get_id() << "] done and will be destroyed\n";
-    return std::move(second_thread);
+    std::cout << "thread: [" << std::this_thread::get_id() << "] started\n";
+    std::cout << "use count for shared_ptr<Number>: " << num.use_count() << std::endl;
+    std::this_thread::sleep_for(2s);
   }
 
-  struct SharedNumber : Number, std::enable_shared_from_this<SharedNumber> {
-    std::shared_ptr<SharedNumber> getptr() {
+  void shared_ptr_usage()
+  {
+    std::shared_ptr<Number> sharedNumber{ new Number{10} };
+    std::cout << "\nthread: [" << std::this_thread::get_id() << "] started\n";
+    std::cout << "use count for shared_ptr<Number>: " << sharedNumber.use_count() << std::endl;
+
+    std::thread(second_thread_func, sharedNumber).detach();
+  }
+
+  struct SharedNumber 
+    : Number
+    , std::enable_shared_from_this<SharedNumber> 
+  {
+    auto getPtr() {
       return shared_from_this();
     }
-    SharedNumber(int initial) : Number(initial) { }
-    ~SharedNumber() {}
+
+    explicit SharedNumber(int initial) 
+      : Number(initial) { }
+    ~SharedNumber() = default;
 
     int increment()
     {
@@ -56,64 +52,65 @@ namespace sharedpointer {
     }
   };
 
-  auto usage_enable_shared_from_this_old()
+  void* number_ptr = NULL;
+  void some_c_function_take_shptr(void* number_ptr_)
   {
-    //auto = std::shared_ptr<SharedNumber>
-    auto shared_number_ptr = std::make_shared<SharedNumber>(10);
-
-    auto func = [](SharedNumber *num) {
-      return std::thread(
-        [](auto num_ptr) { // thread function
-        while (num_ptr->decrement() > 0) {
-          std::this_thread::sleep_for(std::chrono::milliseconds(200));
-          std::cout << num_ptr->toString() << "\n";
-        }
-      },
-        num->shared_from_this() // function arguments
-        );
-    };
-    // send SharedNumber as raw pointer and exit from the scope
-    return std::move(func(shared_number_ptr.get()));
+    number_ptr = number_ptr_;
   }
 
-  auto usage_enable_shared_from_this()
-  {
-    auto create_shared_number = [](int val) {
-      auto num = new SharedNumber{ val };
-      auto shrd = num->getptr();
-      return shrd;
-    };
-
-    auto shrd_num = create_shared_number(10);
-    std::thread t1([](const auto& num_ptr) {
-      while (num_ptr->decrement() > 0) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-        std::cout << num_ptr->toString() << "\n";
-      }
-    }, shrd_num);
-
-    return std::move(t1);
+  void* some_c_func_return_shptr() {
+    return number_ptr;
   }
 
-
-  void usage_weak_ptr()
+  void usage_enable_shared_from_this()
   {
-    auto shared_number_ptr = std::make_shared<SharedNumber>(10);
-    std::weak_ptr<SharedNumber> weak_ptr = shared_number_ptr;
-    std::thread([](std::weak_ptr<SharedNumber> num_ptr) {
-      while (!num_ptr.expired())
-      {
-        auto sp = num_ptr.lock();
-        if (sp->decrement() <= 0) break;
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-        std::cout << sp->toString() << "\n";
-      }
-    }, std::move(weak_ptr)).detach();
+    auto num = std::make_shared<SharedNumber>(10);
+    std::cout
+      << "thread: [" << std::this_thread::get_id()
+      << "] use count for shared_ptr<SharedNumber>: "
+      << num.use_count() << "\n";
+    // pass number instance to c library
+    some_c_function_take_shptr(num.get());
 
-    std::this_thread::sleep_for(
-      std::chrono::milliseconds((rand() % 300) + 200));
+    auto waiter = std::async(launch::async,
+      [] {
+        // retreive number instance from c library
+        void* ptr = some_c_func_return_shptr();
+        auto num_ptr = reinterpret_cast<SharedNumber*>(ptr);
+        auto num_shrd_ptr = num_ptr->getPtr();
+        std::cout
+          << "thread: [" << std::this_thread::get_id()
+          << "] use count for shared_ptr<SharedNumber>: "
+          << num_shrd_ptr.use_count() << "\n";
+      });
+    waiter.wait();
   }
 
+  void second_thread_func_weak(std::weak_ptr<Number> num) {
+    while (true) {
+      if (num.expired()) break;
+      auto shared_num = num.lock();
+      std::cout
+        << "thread: [" << std::this_thread::get_id()
+        << "] use count for shared_ptr<Number>: "
+        << shared_num.use_count() << "\n";
+      std::this_thread::sleep_for(300ms);
+    }
+    std::cout << "thread will end here.. use count: " << num.use_count() << "\n";
+  }
+
+  void usage_weak_ptr() {
+    std::future<void> waiter;
+    {
+      auto sharedNumber = std::make_shared<Number>(10);
+      waiter = std::async(launch::async, second_thread_func_weak,
+                          std::weak_ptr<Number>(sharedNumber));
+      std::this_thread::sleep_for(2s);
+    }
+    waiter.wait();
+  }
+
+  // fake garbage collector using shared pointers
   class SharedPointerReleasePool
   {
   public:
@@ -188,7 +185,7 @@ namespace sharedpointer {
 ELEMENT_CODE(SharedPointerUsage) {
   using namespace sharedpointer;
   //shared_ptr_usage().join();
-  usage_enable_shared_from_this().join();
+  usage_enable_shared_from_this();
 }
 
 ELEMENT_CODE(WeakPointerUsage) {
