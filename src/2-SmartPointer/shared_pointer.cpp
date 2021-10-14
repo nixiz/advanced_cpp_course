@@ -94,7 +94,7 @@ namespace sharedpointer {
         << "thread: [" << std::this_thread::get_id()
         << "] use count for shared_ptr<Number>: "
         << shared_num.use_count() << "\n";
-      std::this_thread::sleep_for(300ms);
+      std::this_thread::sleep_for(1s);
     }
     std::cout << "thread will end here.. use count: " << num.use_count() << "\n";
   }
@@ -105,7 +105,7 @@ namespace sharedpointer {
       auto sharedNumber = std::make_shared<Number>(10);
       waiter = std::async(launch::async, second_thread_func_weak,
                           std::weak_ptr<Number>(sharedNumber));
-      std::this_thread::sleep_for(2s);
+      std::this_thread::sleep_for(200ms);
     }
     waiter.wait();
   }
