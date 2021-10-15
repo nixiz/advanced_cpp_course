@@ -50,6 +50,7 @@ CREATE_ELEMENT(TemplateTraits);
 
 // Exceptions
 CREATE_ELEMENT(ExceptionUsage);
+CREATE_ELEMENT(ExceptionUnwinding);
 
 // Custom Comparators
 CREATE_ELEMENT(CustomComparatorNeedExample);

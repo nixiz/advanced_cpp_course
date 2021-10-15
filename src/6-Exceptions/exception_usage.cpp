@@ -101,40 +101,27 @@ namespace exceptions {
   } // namespace custom
 
   namespace rethrow {
-    std::exception_ptr eptr; // object to hold exceptions (or nullptr)
-    void foo()
+    std::exception_ptr eptr;
+    void thread_func() try
     {
+      std::this_thread::sleep_for(std::chrono::seconds(1));
+      throw std::runtime_error("abort thread");
+    }
+    catch (...) {
+      eptr = std::current_exception(); // save exception for later processing
+    }
+
+    void usage() 
+    {
+      std::thread(thread_func).join();
       try {
-        throw new std::runtime_error("asdasd");
-      }
-      catch (...) {
-        eptr = std::current_exception(); // save exception for later processing
-      }
-    }
-
-    void bar()
-    {
-      if (eptr != nullptr) {
-        std::rethrow_exception(eptr); // process saved exception
-      }
-    }
-
-    void usage() {
-      foo();
-      try
-      {
-        // lately... 
-        bar();
-      }
-      catch (const std::exception& ex)
-      {
+        if (eptr != nullptr) {
+          // process saved exception
+          std::rethrow_exception(eptr);
+        }
+      } catch (const std::exception& ex) {
         std::cout << ex.what() << std::endl;
-      }
-      catch (std::exception* ex)
-      {
-        std::cout << ex->what() << std::endl;
-      }
-      catch (...) {
+      } catch (...) {
         std::cout << "catched unknown exception!" << std::endl;
       }
     }
@@ -144,45 +131,43 @@ namespace exceptions {
   {
     struct unwinder
     {
-      virtual int unwind() const = 0;
+      virtual ~unwinder() = default;
+      virtual void unwind() const = 0;
     };
 
     void will_throw(int should_throw)
     {
-      // x degerinin delete edildigini gostermek icin custom deleter kullaniliyor
-      std::unique_ptr<int, std::function<void(int*)>> x(new int(7), [&](int *p) {
-        delete p;
-      });
-      struct unwinder_impl : public unwinder
+      int* val = new int(10);
+      struct stack_cleaner final
+        : public unwinder 
       {
-        int* val;
-        unwinder_impl(int* _val) : val(_val) {
-          ++(*val);
-          printf("%s\n", __FUNCTION__);
-        }
-        ~unwinder_impl() { printf("%s\n", __FUNCTION__); }
+        int*& val;
+        stack_cleaner(int*& _val) 
+          : val(_val) { printf("%s\n", __FUNCTION__); }
+        ~stack_cleaner() { printf("%s\n", __FUNCTION__); }
 
-        int unwind() const override
-        {
-          //         val = ?
-          return ++(*val);
+        void unwind() const override {
+          if (val) delete val;
         }
       };
-      // release build optimizasyonunu ekarte etmek icin
       if (should_throw % 2 == 0)
-        throw unwinder_impl(x.get());
+        throw stack_cleaner(val);
+      else
+        delete val;
     }
 
     void usage()
     {
       try
       {
-        will_throw(rand());
+        while (true)
+        {
+          will_throw(rand());
+        }
       }
-      catch (const unwinder& _unwinder)
+      catch (const unwinder& unwinder)
       {
-        int res = _unwinder.unwind();
-        std::cout << "result: " << res << "\n";
+        unwinder.unwind();
       }
     }
 
@@ -194,5 +179,10 @@ ELEMENT_CODE(ExceptionUsage) {
   ordering::usage();
   custom::usage();
   rethrow::usage();
+  unwinding::usage();
+}
+
+ELEMENT_CODE(ExceptionUnwinding) {
+  using namespace exceptions;
   unwinding::usage();
 }

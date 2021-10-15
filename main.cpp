@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
     .Add<StaticUsageExample>()
     // Exceptions
     .Add<ExceptionUsage>()
+    .Add<ExceptionUnwinding>()
     // CPU Architecture
     .Add<CpuCacheExample>()
     .Add<CountIfRandom>()
