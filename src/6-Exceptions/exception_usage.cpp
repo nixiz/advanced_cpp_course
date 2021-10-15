@@ -179,7 +179,6 @@ ELEMENT_CODE(ExceptionUsage) {
   ordering::usage();
   custom::usage();
   rethrow::usage();
-  unwinding::usage();
 }
 
 ELEMENT_CODE(ExceptionUnwinding) {
