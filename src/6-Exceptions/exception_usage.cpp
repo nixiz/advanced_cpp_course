@@ -93,7 +93,7 @@ namespace exceptions {
       {
         throw CustomException(__LINE__, __FILE__);
       }
-      catch (const CustomException& ex)
+      catch (const std::exception& ex)
       {
         std::cout << ex.what() << std::endl;
       }
@@ -156,7 +156,7 @@ namespace exceptions {
         delete val;
     }
 
-    void usage()
+    void unwinding_usage()
     {
       try
       {
@@ -183,5 +183,5 @@ ELEMENT_CODE(ExceptionUsage) {
 
 ELEMENT_CODE(ExceptionUnwinding) {
   using namespace exceptions;
-  unwinding::usage();
+  unwinding::unwinding_usage();
 }
