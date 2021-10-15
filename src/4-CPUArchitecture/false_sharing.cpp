@@ -133,26 +133,21 @@ namespace false_sharing
 
   namespace false_sharing_resolved
   {
-    // aligned type with the same size of cache line
-    struct alignas(64) aligned_type
-    {
-      std::atomic<int> val;
-    };
-
     int test()
     {
-      aligned_type a; a.val = 0; // &a: 0x...4ff240
-      aligned_type b; b.val = 0; // &b: 0x...4ff280
-      aligned_type c; c.val = 0; // &c: 0x...4ff2c0
-      aligned_type d; d.val = 0; // &d: 0x...4ff300
+      // aligned type with the same size of cache line
+      alignas(64) std::atomic<int> a{}; // &a: 0x...4ff240
+      alignas(64) std::atomic<int> b{}; // &b: 0x...4ff280
+      alignas(64) std::atomic<int> c{}; // &c: 0x...4ff2c0
+      alignas(64) std::atomic<int> d{}; // &d: 0x...4ff300
 
-      std::thread t1([&a] { work(a.val); });
-      std::thread t2([&b] { work(b.val); });
-      std::thread t3([&c] { work(c.val); });
-      std::thread t4([&d] { work(d.val); });
+      std::thread t1([&a] { work(a); });
+      std::thread t2([&b] { work(b); });
+      std::thread t3([&c] { work(c); });
+      std::thread t4([&d] { work(d); });
 
       t1.join(); t2.join(); t3.join(); t4.join();
-      return a.val + b.val + c.val + d.val;
+      return a + b + c + d;
     }
   }
 
