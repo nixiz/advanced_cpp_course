@@ -2,43 +2,36 @@
 #include <iostream>
 #include <sstream>
 #include <thread>
+#include <future>
 
 namespace StaticUsage {
 
   struct CountedObject {
-    int data;
-
-    static CountedObject CreateNew()
+    static CountedObject GetInstance()
     {
-      std::cout << "called from thread: " << std::this_thread::get_id() << std::endl << std::flush;
-      CountedObject::_id++; // increment totat creation count
-      return CountedObject();
+      // With C++11 static member initializations are thread safe
+      static CountedObject instance;
+      return instance;
     }
-
-    static unsigned int TotalCreationCount() {
-      return CountedObject::_id;
-    }
-
   private:
-    CountedObject() = default;
-    static unsigned int _id;
+    CountedObject()
+    {
+      std::cout << "CountedObject() thread: " << std::this_thread::get_id() << "\n";
+    }
   };
-  //static
-  unsigned int CountedObject::_id = 0;
 }
 
-ELEMENT_CODE(StaticUsageExample) {
+ELEMENT_CODE(StaticUsageExample) 
+{
   using namespace StaticUsage;
-  std::thread t1([]() {
-    for (size_t i = 0; i < 10; i++)
-    {
-      CountedObject::CreateNew();
-    }
-  });
-  for (size_t i = 0; i < 10; i++)
-  {
-    CountedObject::CreateNew();
-  }
+  std::promise<void> wait_flag;
+  auto watier = wait_flag.get_future();
+
+  std::thread t1([] (auto wait_flag) {
+    wait_flag.set_value();
+    CountedObject::GetInstance();
+  }, std::move(wait_flag));
+  watier.wait();
+  CountedObject::GetInstance();
   t1.join();
-  printf("Total creation count: %d", CountedObject::TotalCreationCount());
 }
