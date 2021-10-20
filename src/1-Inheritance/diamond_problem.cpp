@@ -159,6 +159,7 @@ namespace diamondproblem {
   } // namespace problem
 }  // namespace diamondproblem
 
+// https://gcc.godbolt.org/z/4xaeM5KK8
 ELEMENT_CODE(DiamondProblemExample) {
   using namespace diamondproblem;
   problem::demonstrate();

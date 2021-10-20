@@ -21,6 +21,7 @@ namespace StaticUsage {
   };
 }
 
+// https://gcc.godbolt.org/z/G19zvG6YP
 ELEMENT_CODE(StaticUsageExample) 
 {
   using namespace StaticUsage;

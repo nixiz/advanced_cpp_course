@@ -3,6 +3,37 @@
 
 namespace traits
 {
+
+  namespace base
+  {
+    class Line
+    {
+    public:
+      int draw() const { return 5; }
+    };
+
+    class Circle
+    {
+    public:
+      int draw() const { return 6; }
+    };
+
+    template <typename Shape>
+    void drawShape(const Shape& obj)
+    {
+      obj.draw(); // call draw() according to type of object
+    }
+
+    void usage()
+    {
+      Line l;
+      Circle c, c1, c2;
+
+      drawShape(l);   //drawShape<Line>(Shape&)   => Line::draw()
+      drawShape(c1);  //drawShape<Circle>(Shape&) => Circle::draw()
+    }
+  }
+
   namespace problem {
     // common abstract base class GeoObj for geometric objects
     class GeoObj {

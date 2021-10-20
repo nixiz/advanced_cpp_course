@@ -10,17 +10,17 @@
 #include <set>
 #include <type_traits>
 
-class STMValueComparator {
+class ValueComparator {
 private:
   bool bUseCompEpsl;
   double dEpsl;
 public:
-  explicit STMValueComparator(double epsl = 0) : dEpsl(epsl) {
+  explicit ValueComparator(double epsl = 0) : dEpsl(epsl) {
     bUseCompEpsl = dEpsl == 0 ? false : true;
   }
   template <class T,
-    typename = typename std::enable_if_t<std::is_floating_point<T>::value>>
-    bool operator()(const T& lhs, const T& rhs) const {
+    typename = typename std::enable_if_t<std::is_floating_point_v<T>>>
+  bool operator()(const T& lhs, const T& rhs) const {
     if (bUseCompEpsl)
       return (std::fabs(lhs - rhs) > static_cast<T>(dEpsl)) &&
       (lhs < rhs);
@@ -114,7 +114,7 @@ ELEMENT_CODE(CustomComparatorNeedExample) {
 ELEMENT_CODE(CustomComparatorExample) {
 
   {
-    std::map<float, int, STMValueComparator> mm; // use numeric limit epsilon
+    std::map<float, int, ValueComparator> mm; // use numeric limit epsilon
     mm[1.0] = 1;
     mm[2.0] = 2;
     mm[3.0] = 3;
@@ -122,7 +122,7 @@ ELEMENT_CODE(CustomComparatorExample) {
   }
 
   {
-    std::map<float, int, STMValueComparator> mm(STMValueComparator(1.1));
+    std::map<float, int, ValueComparator> mm(ValueComparator(1.1));
     mm[1.0] = 1;
     mm[2.0] = 2;
     mm[3.0] = 3;
@@ -130,7 +130,7 @@ ELEMENT_CODE(CustomComparatorExample) {
   }
 
   {
-    std::map<int, int, STMValueComparator> mm(STMValueComparator(0));
+    std::map<int, int, ValueComparator> mm(ValueComparator(0));
     mm[1] = 1;
     mm[2] = 2;
     mm[3] = 3;
